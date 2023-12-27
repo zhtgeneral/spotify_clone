@@ -7,7 +7,7 @@
 .yarn/install-state.gz
 
 # testing
-/coverage
+/cypress
 
 # next.js
 /.next/
@@ -27,6 +27,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
