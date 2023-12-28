@@ -55,6 +55,7 @@ const Header = ({
           </>
         </div>
       </div>
+      {children}
     </div>
   )
 }
