@@ -11,6 +11,7 @@
     "cy:run": "npx cypress run"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/auth-helpers-react": "^0.4.2",
     "cypress": "^13.6.2",
