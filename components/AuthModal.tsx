@@ -10,10 +10,11 @@ import { useEffect } from "react";
 
 
 const AuthModal = () => {
-  // comes from supabase docs for auth
+  // comes from supabase docs for login using auth
   const supabaseClient = useSupabaseClient();
-  const router = useRouter();
   const { session } = useSessionContext();
+
+  const router = useRouter();
   const { onClose, isOpen } = useAuthModal();
 
   useEffect(() => {
