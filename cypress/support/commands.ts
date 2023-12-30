@@ -35,3 +35,13 @@
 //     }
 //   }
 // }
+
+export function login(email: string, password: string) {
+  cy.visit('/');
+  cy.contains('Log in').click();
+  cy.wait(100);
+  cy.get('input[id="email"]').type(email);
+  cy.get('input[id="password"]').type(password);
+  cy.get('button[type="submit"]').click();
+  return cy.get('button[type="button"]');
+}

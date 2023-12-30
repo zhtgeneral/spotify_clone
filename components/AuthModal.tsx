@@ -25,7 +25,7 @@ const AuthModal = () => {
   }, [session, router, onClose])
 
   const onChange = () => {
-    if (!isOpen) onClose();
+    if (isOpen) onClose();
   }
 
   return (

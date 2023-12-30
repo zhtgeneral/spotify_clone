@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import { login } from './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -28,12 +29,14 @@ import { mount } from 'cypress/react18'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
+      login: typeof login
     }
   }
 }
 
 Cypress.Commands.add('mount', mount)
+Cypress.Commands.add('login', login)
 
 // Example use:
 // cy.mount(<MyComponent />)
