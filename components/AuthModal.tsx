@@ -43,7 +43,8 @@ const AuthModal = () => {
               brandAccent: "#22c55e"
             }
           }
-        }}}/>
+        }}}
+        redirectTo={process.env.NEXT_PUBLIC_HOST_DOMAIN} />
     </Modal>
   )
 }
