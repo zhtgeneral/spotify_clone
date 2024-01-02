@@ -44,7 +44,7 @@ const AuthModal = () => {
             }
           }
         }}}
-        redirectTo={process.env.NEXT_PUBLIC_HOST_DOMAIN} />
+      />
     </Modal>
   )
 }
