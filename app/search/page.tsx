@@ -1,6 +1,6 @@
 import getSongsByTitle from "@/actions/getSongByTitle"
 import Header from "@/components/Header";
-import SearchContent from "@/components/SearchContent";
+import SearchContent from "@/app/search/components/SearchContent";
 import SearchInput from "@/components/SearchInput";
 
 const SearchPage = async ({

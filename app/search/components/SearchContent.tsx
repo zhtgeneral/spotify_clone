@@ -1,5 +1,8 @@
+'use client'
+
 import { Song } from "@/types"
-import MediaItem from "./MediaItem"
+import MediaItem from "../../../components/MediaItem"
+import LikeButton from "@/components/LikeButton"
 
 const SearchContent = ({
   songs,
@@ -16,8 +19,9 @@ const SearchContent = ({
       {songs.map((item: Song) => (
         <div key={item.id} className='flex items-center gap-x-4 w-full'>
           <div className='flex-1'>
-            {/* <MediaItem onClick={() => {}} data={item} /> */}
+            <MediaItem onClick={() => {}} data={item} />
           </div>
+          <LikeButton songId={item.id} />
         </div>
       ))}
     </div>
