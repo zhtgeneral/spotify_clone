@@ -8,7 +8,7 @@ const MediaItem = ({
   onClick,
   data
 }: {
-  onClick: (id: string) => void;
+  onClick?: (id: string) => void;
   data: Song
 }) => {
   const imageUrl = useLoadImage(data);
