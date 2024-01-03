@@ -22,7 +22,7 @@ const LikeButton = ({
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    if (!user?.id) return
+    if (!user?.id) return;
     const fetchData = async () => {
       const { data, error } = await supabaseClient.from('liked_songs').select('*').eq('user_id', user.id).eq('song_id', songId).single();
       if (!error && data) setIsLiked(true);
@@ -36,12 +36,16 @@ const LikeButton = ({
     if (!user) authmodal.onOpen();
     if (isLiked) {
       const { error } = await supabaseClient.from('liked_songs').delete().eq('user_id', user?.id).eq('song_id', songId);
-      if (error) toast.error(error.message); 
-      else setIsLiked(false);
+      if (error) {
+        toast.error(error.message); 
+      } else {
+        setIsLiked(false);
+      }
     } else {
       const { error } = await supabaseClient.from('liked_songs').insert({ song_id: songId, user_id: user?.id })
-      if (error) toast.error(error.message); 
-      else {
+      if (error) {
+        toast.error(error.message); 
+      }else {
         setIsLiked(true);
         toast.success('Song liked');
       }

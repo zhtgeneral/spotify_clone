@@ -36,12 +36,15 @@
 //   }
 // }
 
-export function login(email: string, password: string) {
-  cy.visit('/');
-  cy.contains('Log in').click();
-  cy.wait(100);
-  cy.get('input[id="email"]').type(email);
-  cy.get('input[id="password"]').type(password);
-  cy.get('button[type="submit"]').click();
-  return cy.get('button[type="button"]');
+export function login(email: string, password: string, url: string) {
+  cy.visit(url);
+  cy.contains('Log in').click().then(() => {
+    cy.wait(200); // todo
+    cy.get('input[id="email"]').type(email);
+    cy.get('input[id="password"]').type(password);
+    cy.intercept('POST', /https:\/\/klnudzcihnlpfoiabxjy\.supabase\.co\/auth\/v1\/token\?grant_type=password/i).as('loggedIn');
+    cy.get('button[type="submit"]').click();
+    cy.wait('@loggedIn');
+  })
+  return cy.get('body');
 }

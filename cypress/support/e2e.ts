@@ -18,3 +18,6 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+export const PASSWORD = '1234567890';
+export const VALID_EMAIL = 'test.spotify.clone@gmail.com';
