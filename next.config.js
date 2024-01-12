@@ -6,5 +6,5 @@ module.exports = {
     domains: [
       'klnudzcihnlpfoiabxjy.supabase.co'
     ]
-  }  
+  }
 }

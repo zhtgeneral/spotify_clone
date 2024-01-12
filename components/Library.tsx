@@ -33,9 +33,9 @@ const Library = ({
           <TbPlaylist className='text-neutral-400' size={26}/>
           <p className='text-neutral-400 font-medium text-md'>Your library</p>
         </div>
-        <AiOutlinePlus onClick={onClick} size={20} className='text-neutral-400 cursor-pointer hover:text-white transition'/>
+        <AiOutlinePlus onClick={onClick} size={20} className='text-neutral-400 cursor-pointer hover:text-white transition' id='upload-song' />
       </div>
-      <div className='flex flex-col gap-y-2 mt-4 px-3'>
+      <div className='flex flex-col gap-y-2 mt-4 px-3' id='library-songs'>
         {songs.map((item: Song) => (
           <MediaItem onClick={(id: string) => onPlay(id)} key={item.id} data={item}/>
         ))}

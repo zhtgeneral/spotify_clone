@@ -5,19 +5,17 @@ import Image from 'next/image'
 import PlayButton from "@/components/PlayButton";
 
 const SongItem = ({
-  key,
   onClick,
   data
 }: {
-  key: string;
   onClick: (id: string) => void;
   data: any
 }) => {
   const imagePath = useLoadImage(data);
   return (
-    <div onClick={() => onClick(data.id)} className='relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-3'>
+    <div onClick={() => onClick(data.id)} id='song-item' className='relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-3'>
       <div className='relative aspect-square w-full h-full rounded-md overflow-hidden'>
-        <Image className='object-cover' src={imagePath || '/images/liked.png'} fill alt='Image' />
+        <Image className='object-cover' src={imagePath || '/images/liked.png'} fill alt='Image' sizes='1000' />
       </div>
       <div className='flex flex-col items-start w-full p-4 gap-y-1'>
         <p className='font-semibold truncate w-full'>{data.title}</p>

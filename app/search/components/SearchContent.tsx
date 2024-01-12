@@ -19,7 +19,7 @@ const SearchContent = ({
   return (
     <div className='flex flex-col gap-y-2 w-full px-6'>
       {songs.map((item: Song) => (
-        <div key={item.id} className='flex items-center gap-x-4 w-full'>
+        <div key={item.id} className='flex items-center gap-x-4 w-full' id='searched-songs'>
           <div className='flex-1'>
             <MediaItem onClick={(id: string) => onPlay(id)} data={item} />
           </div>
