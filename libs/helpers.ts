@@ -6,13 +6,7 @@ export const getURL = () => {
   return (url.charAt(url.length - 1) === '/' )? url : `${url}/`;
 }
 
-export const postData = async ({
-  url, 
-  data
-}: {
-  url: string;
-  data?: { price: Price }
-}) => {
+export const postData = async (url: string, data: {price: Price}) => {
   // comes from node docs
   console.log('POST REQUEST:', url, data);
   const res: Response = await fetch(url, {

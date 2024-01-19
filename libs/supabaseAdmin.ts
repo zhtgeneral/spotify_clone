@@ -92,7 +92,7 @@ const createOrRetrieveACustomer = async (email: string, uuid: string) => {
  * @param uuid supabase user id
  * @param payment_method a Stripe.PaymentMethod object
  */
-const copyBillingDetailsToCustomer = async ( uuid: string, payment_method: Stripe.PaymentMethod) => {
+const copyBillingDetailsToCustomer = async (uuid: string, payment_method: Stripe.PaymentMethod) => {
   const { name, phone, address } = payment_method.billing_details;
   if (!name || !phone || !address) return;
   

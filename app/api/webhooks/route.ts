@@ -16,9 +16,9 @@ const relevantEvents = new Set([
 ])
 
 export async function POST(request: Request) {
-  // from stripe webhook docs
+  // from stripe webhook docs for testing webhooks
 
-  const body = await request.text();
+  const body      = await request.text();
   const signature = headers().get('Stripe-Signature');
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;

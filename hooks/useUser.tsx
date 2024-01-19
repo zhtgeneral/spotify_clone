@@ -5,20 +5,15 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type UserContextType = {
   accessToken: string | null;
-  user: User | null;
+  user:        User | null;
   userDetails: UserDetails | null;
-  isLoading: boolean;
+  isLoading:   boolean;
   subscription: Subscription | null;
 }
 
-export const UserContext: React.Context<UserContextType | undefined> = createContext<UserContextType | undefined>(
-  undefined
-);
-export interface Props {
-  [propName: string]: any;
-}
+export const UserContext: React.Context<UserContextType | undefined> = createContext<UserContextType | undefined>(undefined);
 
-export const MyUserContextProvider = (props: Props) => {
+export const MyUserContextProvider = (props: { [propName: string]: any }) => {
   const { session, isLoading: isLoadingUser, supabaseClient: supabase } = useSessionContext();
   const user = useSupaUser();
   const accessToken = session?.access_token ?? null;
@@ -62,6 +57,3 @@ export const useUser = () => {
   if (context === undefined) throw new Error('useUser must be used within a MyUserContextProvider');
   return context;
 }
-
-// just a use state (start as null and the values are set using a callback)
-// mock change

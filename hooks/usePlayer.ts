@@ -17,3 +17,4 @@ const usePlayer = create<PlayerStore>((set) => ({
 }))
 
 export default usePlayer;
+// comes from zustand docs

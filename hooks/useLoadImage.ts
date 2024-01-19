@@ -1,6 +1,10 @@
 import { Song } from "@/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-
+/**
+ * returns image url from supabase
+ * @param song Song
+ * @returns imageUrl string
+ */
 const useLoadImage = (song: Song) => {
   const supabaseClient = useSupabaseClient();
   if (!song) return null
