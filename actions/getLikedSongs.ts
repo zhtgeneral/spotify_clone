@@ -6,15 +6,17 @@ import getSongs from "./getSongs";
 const getLikedSongs = async (): Promise<Song[]> => {
   // from supabase docs
   const supabase = createServerComponentClient({
-    cookies: cookies
-  })
+    cookies: cookies,
+  });
   const {
-    data: {
-      session
-    }
+    data: { session },
   } = await supabase.auth.getSession();
 
-  const { data, error } = await supabase.from('liked_songs').select('*, songs(*)').eq('user_id', session?.user?.id).order('created_at', { ascending: false });
+  const { data, error } = await supabase
+    .from("liked_songs")
+    .select("*, songs(*)")
+    .eq("user_id", session?.user?.id)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.log(error.message);
@@ -24,9 +26,9 @@ const getLikedSongs = async (): Promise<Song[]> => {
   if (!data) {
     return [];
   }
-  
+
   return data.map((item) => ({
-    ...item.songs
-  }))
-}
+    ...item.songs,
+  }));
+};
 export default getLikedSongs;

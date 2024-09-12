@@ -10,17 +10,17 @@ import { useUser } from "./useUser";
  * @returns (id: string) => void
  */
 const useOnPlay = (songs: Song[]) => {
-  const player    = usePlayer();
+  const player = usePlayer();
   const authModal = useAuthModal();
-  const { user }  = useUser();
+  const { user } = useUser();
 
   const onPlay = (id: string) => {
     if (!user) return authModal.onOpen();
     player.setId(id);
-    player.setIds(songs.map((song: Song) => song.id))
-  }
+    player.setIds(songs.map((song: Song) => song.id));
+  };
 
   return onPlay;
-}
+};
 
 export default useOnPlay;
