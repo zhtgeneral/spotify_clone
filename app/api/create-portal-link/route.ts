@@ -15,12 +15,13 @@ export async function POST() {
     if (!user) throw new Error('could not get user');
 
     const customer = await createOrRetrieveACustomer(user.id as string, user.email as string)
-    if (!customer) throw new Error('could not get customer')
+    if (!customer) throw Error('could not get customer')
 
     const { url } = await stripe.billingPortal.sessions.create({ customer, return_url: `${getURL()}/account` })
     return NextResponse.json({ url });
 
   } catch (error: any) {
+    console.log(error);
     return new NextResponse('Internal error');
   }
 }

@@ -19,16 +19,19 @@ const formatPrice = (price: Price) => {
   return priceString;
 }
 
-
 const SubscribeModal = ({
   products
 }: {
   products: ProductWithPrice[]
 }) => {
-
-
   const [priceIDLoading, setPriceIDLoading] = useState<string>();
   const { user, isLoading, subscription } = useUser();
+  const [ modalOpen, setModalOpen ] = useState(false);
+
+  const handleModelOpen = (open: boolean): void => {
+    (modalOpen)? setModalOpen(true): setModalOpen(false);
+  }
+
   const handleCheckout = async (price: Price) => {
     setPriceIDLoading(price.id);
     if (!user) {
@@ -40,7 +43,10 @@ const SubscribeModal = ({
       return toast('Already subscribed')
     }
     try {
-      const { sessionId } = await postData('/api/create-checkout-session', { price });
+      const { sessionId } = await postData({
+        url: '/api/create-checkout-session', 
+        data: { price }
+      });
 
       const stripe = await getStripe();
       stripe?.redirectToCheckout({ sessionId })
@@ -55,23 +61,20 @@ const SubscribeModal = ({
     <div className='text-center'>No products available</div>
   )
 
-  if (products.length !== 0) {
+  if (products.length) {
     content = (
       <div>
         {products.map((product: ProductWithPrice) => {
           if (!product.prices?.length) {
             return (
-              <div key={product.id}>
-                No prices available.
-              </div>
+              <div key={product.id}>No prices available.</div>
             )
-          } else {
-            return product.prices.map((price) => (
-              <Button key={price.id} className='mb-4' onClick={() => handleCheckout(price)} disabled={isLoading || price.id === priceIDLoading}>
-                {`Subscribe for ${formatPrice(price)} for ${price.interval}`}
-              </Button>
-            ))
-          }
+          } 
+          return product.prices.map((price) => (
+            <Button key={price.id} className='mb-4' onClick={() => handleCheckout(price)} disabled={isLoading || price.id === priceIDLoading}>
+              {`Subscribe for ${formatPrice(price)} for ${price.interval}`}
+            </Button>
+          ))
         })}
       </div>
     )
@@ -79,13 +82,11 @@ const SubscribeModal = ({
 
   if (subscription) {
     content = (
-      <div className='text-center'>
-        Already subscribed
-      </div>
+      <div className='text-center'>Already subscribed</div>
     )
   }
   return (
-    <Modal title='Only for premium users' description="listen to music with Spatify Gold" isOpen={true} onChange={() => {}}>
+    <Modal title='Only for premium users' description="listen to music with Spatify Gold" isOpen={modalOpen} onChange={handleModelOpen}>
       {content}
     </Modal>
   )
