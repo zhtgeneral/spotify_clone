@@ -14,11 +14,16 @@ import { PlayFunction } from "use-sound/dist/types";
 import useSound from "use-sound";
 
 /**
- * Player Component that plays songs.
+ * Player content that handles song navigation and component.
+ *
  * The component has a mute button, volume slider play button, back and forward buttons.
+ *
  * Pressing on next or previous song should navigate to the correct song.
+ *
  * Pressing on the mute button should mute the sound.
+ *
  * Sliding the volume slider should adjust the volume.
+ *
  * @param param Object with song and songUrl
  * @returns JSX.Element
  */
