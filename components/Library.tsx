@@ -9,6 +9,18 @@ import { Song } from "@/types";
 import MediaItem from "@/components/MediaItem";
 import useOnPlay from "@/hooks/useOnPlay";
 
+/**
+	Component that renders the songs that the user has uploaded.
+
+	When the plus icon is clicked on, it checks if the user is logged in.
+	If the user is logged in, it opens a modal to add song.
+	Otherwise it opens the login modal.
+
+	When the list of the songs goes out of the screen, the list is scrollable vertically.
+
+  @param songs the songs that the user has uploaded
+  @returns JSX.Element
+ */
 const Library = ({ songs }: { songs: Song[] }) => {
 	const authModal = useAuthModal();
 	const uploadModal = useUploadModal();
