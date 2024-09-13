@@ -4,31 +4,31 @@ import { cookies } from "next/headers";
 import getSongs from "./getSongs";
 
 const getLikedSongs = async (): Promise<Song[]> => {
-  // from supabase docs
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+	// from supabase docs
+	const supabase = createServerComponentClient({
+		cookies: cookies,
+	});
+	const {
+		data: { session },
+	} = await supabase.auth.getSession();
 
-  const { data, error } = await supabase
-    .from("liked_songs")
-    .select("*, songs(*)")
-    .eq("user_id", session?.user?.id)
-    .order("created_at", { ascending: false });
+	const { data, error } = await supabase
+		.from("liked_songs")
+		.select("*, songs(*)")
+		.eq("user_id", session?.user?.id)
+		.order("created_at", { ascending: false });
 
-  if (error) {
-    console.log(error.message);
-    return [];
-  }
+	if (error) {
+		console.log(error.message);
+		return [];
+	}
 
-  if (!data) {
-    return [];
-  }
+	if (!data) {
+		return [];
+	}
 
-  return data.map((item) => ({
-    ...item.songs,
-  }));
+	return data.map((item) => ({
+		...item.songs,
+	}));
 };
 export default getLikedSongs;

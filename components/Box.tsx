@@ -1,19 +1,19 @@
 import { twMerge } from "tailwind-merge";
 
 const Box = ({
-  children,
-  className,
+	children,
+	className,
 }: {
-  children: React.ReactNode;
-  className?: string;
+	children: React.ReactNode;
+	className?: string;
 }) => {
-  return (
-    <div
-      className={twMerge(`bg-neutral-900 rounded-lg h-fit w-full`, className)}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div
+			className={twMerge(`bg-neutral-900 rounded-lg h-fit w-full`, className)}
+		>
+			{children}
+		</div>
+	);
 };
 
 export default Box;

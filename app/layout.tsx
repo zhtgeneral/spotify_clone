@@ -13,31 +13,31 @@ import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 const font = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Spotify Clone",
-  description: "Listen to music",
+	title: "Spotify Clone",
+	description: "Listen to music",
 };
 
 export const revalidate = 0;
 
 export default async function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  const userSongs = await getSongsByUserId();
-  const products = await getActiveProductsWithPrices();
-  return (
-    <html lang="en">
-      <body className={font.className}>
-        <ToasterProvider />
-        <SupabaseProvider>
-          <UserProvider>
-            <ModalProvider products={products} />
-            <SideBar songs={userSongs}>{children}</SideBar>
-            <Player />
-          </UserProvider>
-        </SupabaseProvider>
-      </body>
-    </html>
-  );
+	const userSongs = await getSongsByUserId();
+	const products = await getActiveProductsWithPrices();
+	return (
+		<html lang="en">
+			<body className={font.className}>
+				<ToasterProvider />
+				<SupabaseProvider>
+					<UserProvider>
+						<ModalProvider products={products} />
+						<SideBar songs={userSongs}>{children}</SideBar>
+						<Player />
+					</UserProvider>
+				</SupabaseProvider>
+			</body>
+		</html>
+	);
 }

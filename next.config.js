@@ -2,7 +2,7 @@
 const nextConfig = {};
 
 module.exports = {
-  images: {
-    domains: ["klnudzcihnlpfoiabxjy.supabase.co"],
-  },
+	images: {
+		domains: ["klnudzcihnlpfoiabxjy.supabase.co"],
+	},
 };
