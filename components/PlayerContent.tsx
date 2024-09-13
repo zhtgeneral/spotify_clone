@@ -1,17 +1,27 @@
 "use client";
 
 import { Song } from "@/types";
+import usePlayer from "@/hooks/usePlayer";
 import MediaItem from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
-import { BsPauseFill, BsPlayFill } from "react-icons/bs";
+import Slider from "@/components/Slider";
+
+import { useEffect, useState } from "react";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerXMark, HiSpeakerWave } from "react-icons/hi2";
-import Slider from "@/components/Slider";
-import usePlayer from "@/hooks/usePlayer";
-import { useEffect, useState } from "react";
-import useSound from "use-sound";
+import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { PlayFunction } from "use-sound/dist/types";
+import useSound from "use-sound";
 
+/**
+ * Player Component that plays songs.
+ * The component has a mute button, volume slider play button, back and forward buttons.
+ * Pressing on next or previous song should navigate to the correct song.
+ * Pressing on the mute button should mute the sound.
+ * Sliding the volume slider should adjust the volume.
+ * @param param Object with song and songUrl
+ * @returns JSX.Element
+ */
 const PlayerContent = ({ song, songUrl }: { song: Song; songUrl: string }) => {
 	const player = usePlayer();
 	const [volume, setVolume] = useState(1);
