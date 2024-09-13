@@ -3,13 +3,24 @@
 import useLoadImage from "@/hooks/useLoadImage";
 import Image from "next/image";
 import PlayButton from "@/components/PlayButton";
+import { Song } from "@/types";
 
+/**
+ * Renders song image in a rounded square icon.
+ *
+ * Renders the play button when hovered over. If image is missing, renders the heart icon.
+ *
+ * When clicked on, passes the song id into onClick
+ *
+ * @param param Object with ```onClick: (id: string) => void``` and ```data: Song```
+ * @returns ```JSX.Element```
+ */
 const SongItem = ({
 	onClick,
 	data,
 }: {
 	onClick: (id: string) => void;
-	data: any;
+	data: Song;
 }) => {
 	const imagePath = useLoadImage(data);
 	return (
