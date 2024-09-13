@@ -2,6 +2,17 @@
 
 import * as RadixSlider from "@radix-ui/react-slider";
 
+/**
+	Component that renders a slider.
+  
+  The slider is horizontal, thin, white. The current value of the slider is a bar that shows the current value
+   
+  The slider steps by ```0.1``` and is from ```[0, 1]```
+  
+   @param value Optional ```number``` and defaults to 1
+	 @param onChange Optional ```(value: number) => void``` that handles the change in value
+   @returns {JSX.Element}
+ */
 const Slider = ({
 	value = 1,
 	onChange,

@@ -2,6 +2,18 @@ import Link from "next/link";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 
+/**
+  Component that renders a route with the route's icon and label.
+
+	The component is rectangular and dark grey. 
+	The text and icon are light gray and become white when hovered over or selected
+
+  @param icon Icon that appears to left of the component
+  @param label string that appears to the right of the component
+	@param active boolean that determines if the icon is highlighted
+	@param href string that is the route
+  @returns JSX.Element
+ */
 const SidebarItem = ({
 	icon: Icon,
 	label,
