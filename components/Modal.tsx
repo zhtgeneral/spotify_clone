@@ -1,6 +1,20 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { IoMdClose } from "react-icons/io";
 
+/**
+  Component that renders reusable modal. 
+
+	Displays title, description, x button in upper right.
+
+	When clicked outside of the modal or on the upper right x, it should close the modal.
+
+  @param isOpen determines if modal is open
+	@param onChange callback function that handles any change of isOpen
+	@param title renders title on the modal
+	@param description renders description on the modal
+	@param children renders the inside of the current modal
+  @returns JSX.Element
+ */
 const Modal = ({
 	isOpen,
 	onChange,

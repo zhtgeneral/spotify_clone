@@ -7,7 +7,9 @@ import qs from "query-string";
 import Input from "@/components/Input";
 
 /**
-  An Input Component that puts the input as a param onto the URL
+  Component that renders `What do you want to listen to?` 
+	
+	Takes user input and puts the param onto the URL
 */
 const SearchInput = () => {
 	const router = useRouter();

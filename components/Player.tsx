@@ -6,15 +6,13 @@ import usePlayer from "@/hooks/usePlayer";
 import PlayerContent from "@/components/PlayerContent";
 
 /**
- * Player component that handles the rendering of player content.
- *
- * Loads the song into the player content by passing in song and songUrl.
- *
- * Returns the player content if there is an active song
- *
- * Else returns null
- *
- * @returns JSX.ELement | null
+  Component that handles the rendering of player.
+ 
+  Loads the song into the player by getting current song from global state and fetching from database.
+ 
+  Returns the player if there is an active song, otherwise returns null
+ 
+  @returns JSX.ELement | null
  */
 const Player = () => {
 	const player = usePlayer();

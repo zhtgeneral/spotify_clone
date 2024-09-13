@@ -1,7 +1,7 @@
 import { FaPlay } from "react-icons/fa";
 
 /**
- * Reusable button component.
+ * Component that renders a reusable button.
  *
  * Appears green with black play icon that is enlarged when hovered over
  *

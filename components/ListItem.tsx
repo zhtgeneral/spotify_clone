@@ -3,10 +3,21 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
-import AuthModal from "./AuthModal";
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
 
+/**
+	Component that acts as a billboard.
+
+	When clicked, it checks if the user is logged in.
+	If the user isn't logged in, it opens up the login modal.
+	Otherwise take them to the specified link.
+
+  @param image image that appears to the left of the billboard
+	@param name heading that appears to the right of the billboard
+	@param href link that the user is taken to when the billboard is clicked on
+  @returns JSX.Element
+ */
 const ListItem = ({
 	image,
 	name,
