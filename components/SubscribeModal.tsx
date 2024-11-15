@@ -1,30 +1,33 @@
 "use client";
 
-import Modal from "@/components/Modal";
-import Button from "@/components/Button";
-import { Price, ProductWithPrice } from "@/types";
-import { useState } from "react";
-import { useUser } from "@/hooks/useUser";
-import toast from "react-hot-toast";
 import { postData } from "@/libs/helpers";
 import { getStripe } from "@/libs/stripeClient";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { Price, ProductWithPrice } from "@/types";
+import Modal from "@/components/Modal";
+import Button from "@/components/Button";
+import { useUser } from "@/hooks/useUser";
+import formatPrice from "@/utils/formatPrice";
+import axios from "axios";
 
-const formatPrice = (price: Price) => {
-	const priceString = new Intl.NumberFormat("en-US", {
-		style: "currency",
-		currency: price.currency,
-		minimumFractionDigits: 0,
-	}).format((price?.unit_amount || 0) / 100);
+interface SubscribeModalProps {
+	products: ProductWithPrice[]
+}
 
-	return priceString;
-};
-
-const SubscribeModal = ({ products }: { products: ProductWithPrice[] }) => {
+/**
+ * This component handles displaying each product in a modal.
+ * 
+ * 
+ */
+const SubscribeModal: React.FC<SubscribeModalProps> = ({ 
+	products
+}) => {
 	const [priceIDLoading, setPriceIDLoading] = useState<string>();
 	const { user, isLoading, subscription } = useUser();
-	const [modalOpen, setModalOpen] = useState(false);
+	const [modalOpen, setModalOpen] = useState(true);
 
-	const handleModelOpen = (open: boolean): void => {
+	const handleModalChange = () => {
 		modalOpen ? setModalOpen(true) : setModalOpen(false);
 	};
 
@@ -39,15 +42,12 @@ const SubscribeModal = ({ products }: { products: ProductWithPrice[] }) => {
 			return toast("Already subscribed");
 		}
 		try {
-			const { sessionId } = await postData({
-				url: "/api/create-checkout-session",
-				data: { price },
+			const { data } = await axios.post("/api/create-checkout-session", { 
+				price 
 			});
-
-			const stripe = await getStripe();
-			stripe?.redirectToCheckout({ sessionId });
-		} catch (error) {
-			toast.error((error as Error)?.message);
+			window.location.href = data.url;
+		} catch (error: any) {
+			toast.error(error.message);
 		} finally {
 			setPriceIDLoading(undefined);
 		}
@@ -83,9 +83,9 @@ const SubscribeModal = ({ products }: { products: ProductWithPrice[] }) => {
 	return (
 		<Modal
 			title="Only for premium users"
-			description="listen to music with Spatify Gold"
+			description="listen to music with Music App Gold"
 			isOpen={modalOpen}
-			onChange={handleModelOpen}
+			onChange={handleModalChange}
 		>
 			{content}
 		</Modal>

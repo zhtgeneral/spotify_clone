@@ -1,28 +1,46 @@
 import { getURL } from "@/libs/helpers";
 import { stripe } from "@/libs/stripe";
-import { createOrRetrieveACustomer } from "@/libs/supabaseAdmin";
+import { ensureCustomer } from "@/libs/supabaseAdmin";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { UserResponse } from "@supabase/supabase-js";
+import { HttpStatusCode } from "axios";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+/**
+ * This endpoint handles creating a Stripe checkout session.
+ * 
+ * It gets the user using supabase auth.
+ * It returns a `401` response if the authentication error occurs.
+ * It returns a `404` response if the user cannot be found.
+ * 
+ * Otherwise it ensures there is a customer record in the database 
+ * for the corresponding user.
+ * 
+ * It then creates a Stripe checkout session with appropriate callback urls
+ * and returns the session id with a `200` response.
+ * 
+ * If any other error occurs, it returns a `500` error for `Internal Error`.
+ */
+export async function POST(request: NextRequest, response: NextResponse) {
 	const { price, quantity = 1, metadata = {} } = await request.json();
 
-	// from auth helpers nextjs docs
 	try {
 		const supabase = createRouteHandlerClient({ cookies });
+		const userResponse: UserResponse = await supabase.auth.getUser();
+		if (userResponse.error) {
+			return new NextResponse("Authentication Error", { status: HttpStatusCode.Unauthorized })
+		}
+		const user = userResponse.data.user;
+		if (!user) {
+			return new NextResponse("User could not be found", { status: HttpStatusCode.NotFound });
+		}
 
-		const {
-			data: { user },
-		} = await supabase.auth.getUser();
-		const customer = await createOrRetrieveACustomer(
-			user?.id as string,
-			user?.email as string
-		);
+		const customerId: string = await ensureCustomer(user.email!, user.id);
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ["card"],
 			billing_address_collection: "required",
-			customer,
+			customer: customerId,
 			line_items: [{ price: price.id, quantity }],
 			mode: "subscription",
 			allow_promotion_codes: true,
@@ -32,10 +50,9 @@ export async function POST(request: Request) {
 			success_url: `${getURL()}/account`,
 			cancel_url: `${getURL()}`,
 		});
-
-		return NextResponse.json({ sessionId: session.id });
+		return NextResponse.json({ url: session.url });
 	} catch (error: any) {
 		console.log(error);
-		return new NextResponse("Internal Error", { status: 500 });
+		return new NextResponse("Internal Error", { status: HttpStatusCode.InternalServerError });
 	}
 }

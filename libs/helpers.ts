@@ -6,16 +6,9 @@ export const getURL = () => {
 	return url.charAt(url.length - 1) === "/" ? url : `${url}/`;
 };
 
-export const postData = async ({
-	url,
-	data,
-}: {
-	url: string;
-	data?: { price: Price };
-}) => {
-	// comes from node docs
-	console.log("POST REQUEST:", url, data);
 
+export async function postData (url: string, data: { price: Price }) {
+	console.log("POST REQUEST:", url, data);
 	const res: Response = await fetch(url, {
 		method: "POST",
 		headers: new Headers({ "Content-Type": "application/json" }),
@@ -26,7 +19,9 @@ export const postData = async ({
 	if (!res.ok) {
 		console.log("Error in POST", { url, data, res });
 		throw new Error(res.statusText);
-	} else return res.json();
+	} else {
+		return res.json();
+	}
 };
 
 export const toDateTime = (seconds: number) => {

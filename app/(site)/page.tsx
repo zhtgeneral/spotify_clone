@@ -3,8 +3,14 @@ import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import PageContent from "./components/pageContent";
 
+/** This is used to disable caching */
 export const revalidate = 0;
 
+/**
+ * This is the main page
+ * 
+ * It renders the header, an image that redirects to the liked songs, and the page content
+ */
 export default async function Home() {
 	const songs = await getSongs();
 	return (

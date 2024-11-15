@@ -4,11 +4,24 @@ import SongItem from "@/components/SongItem";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "@/types";
 
-const PageContent = ({ songs }: { songs: Song[] }) => {
+interface PageContentProps {
+	songs: Song[]
+}
+
+/**
+ * This component shows all the songs by most recently added 
+ */
+const PageContent: React.FC<PageContentProps> = ({ 
+	songs
+}) => {
 	const onPlay = useOnPlay(songs);
 
 	if (songs.length === 0) {
-		return <div>No Songs available.</div>;
+		return (
+			<div>
+				No Songs available.
+			</div>
+		)
 	}
 	return (
 		<div

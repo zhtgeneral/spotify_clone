@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Figtree, Inter } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 import SideBar from "../components/Sidebar";
 import SupabaseProvider from "@/providers/SupabaseProvider";
@@ -17,8 +17,12 @@ export const metadata: Metadata = {
 	description: "Listen to music",
 };
 
+/** This is used to disable caching */
 export const revalidate = 0;
 
+/**
+ * This component provides access to all needed hooks
+ */
 export default async function RootLayout({
 	children,
 }: {

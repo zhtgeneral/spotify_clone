@@ -8,20 +8,29 @@ import { Song } from "@/types";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const LikedContent = ({ songs }: { songs: Song[] }) => {
-	const onPlay = useOnPlay(songs);
+interface LikedContentProps {
+	songs: Song[]
+}
 
+/**
+ * This component shows the liked songs of the user.
+ */
+const LikedContent: React.FC<LikedContentProps> = ({ 
+	songs
+}) => {
+	const onPlay = useOnPlay(songs);
 	const router = useRouter();
 	const { isLoading, user } = useUser();
 
 	useEffect(() => {
-		if (!isLoading && !user) router.replace("/");
+		if (!isLoading && !user) {
+			router.replace("/");
+		}
 	}, [isLoading, user, router]);
 
 	if (songs.length === 0) {
 		return (
-			<div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
-				{" "}
+			<div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400 pr-1">
 				No liked songs
 			</div>
 		);
@@ -36,7 +45,10 @@ const LikedContent = ({ songs }: { songs: Song[] }) => {
 					id="liked-songs"
 				>
 					<div className="flex-1">
-						<MediaItem onClick={(id: string) => onPlay(id)} data={item} />
+						<MediaItem 
+							onClick={(id: string) => onPlay(id)} 
+							data={item} 
+						/>
 					</div>
 					<LikeButton songId={item.id} />
 				</div>

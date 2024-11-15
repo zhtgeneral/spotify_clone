@@ -3,13 +3,14 @@ import Header from "@/components/Header";
 import SearchContent from "@/app/search/components/SearchContent";
 import SearchInput from "@/components/SearchInput";
 
-const SearchPage = async ({
-	searchParams: { title },
-}: {
-	searchParams: {
-		title: string;
-	};
-}) => {
+interface SearchPageProps {
+	title: string;
+}
+
+/**
+ * This component handles searching songs
+ */
+const SearchPage: React.FC<SearchPageProps> = async ({ title }) => {
 	const songs = await getSongsByTitle(title);
 	return (
 		<div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">

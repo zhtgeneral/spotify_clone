@@ -1,20 +1,31 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+import { ProductWithPrice } from "@/types";
 import AuthModal from "@/components/AuthModal";
 import SubscribeModal from "@/components/SubscribeModal";
 import UploadModal from "@/components/UploadModal";
-import { ProductWithPrice } from "@/types";
-import { useEffect, useState } from "react";
 
-const ModalProvider = ({ products }: { products: ProductWithPrice[] }) => {
+interface ModalProviderProps {
+	products: ProductWithPrice[]
+}
+
+/**
+ * This component allows access to many modals.
+ * 
+ * It allows access to Auth, Upload, and Subscribe modals.
+ */
+const ModalProvider: React.FC<ModalProviderProps> = ({ 
+	products
+}) => {
 	const [isMounted, setIsMounted] = useState(false);
-
 	useEffect(() => {
 		setIsMounted(true);
 	}, []);
 
-	if (!isMounted) return null;
-
+	if (!isMounted) {
+		return null;
+	}
 	return (
 		<>
 			<AuthModal />

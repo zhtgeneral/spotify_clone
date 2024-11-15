@@ -3,8 +3,12 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import LikedContent from "./components/LikedContent";
 
+/** This is used to disable caching */
 export const revalidate = 0;
 
+/**
+ * This component handles liking songs and renders liked songs
+ */
 const LikedPage = async () => {
 	const songs = await getLikedSongs();
 	return (
@@ -23,7 +27,9 @@ const LikedPage = async () => {
 						</div>
 						{/* below is mobile view */}
 						<div className="flex flex-col gap-y-2 mt-4 md:mt-0">
-							<p className="hidden md:block">Playlist</p>
+							<p className="hidden md:block">
+								Playlist
+							</p>
 							<h1 className="text-white text-4xl sm:text-5xl lg:text-7xl font-bold">
 								Liked songs
 							</h1>
