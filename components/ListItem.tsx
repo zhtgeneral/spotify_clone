@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import { useUser } from "@/hooks/useUser";
-import useAuthModal from "@/hooks/useAuthModal";
+import useAuthModal from "@/hooks/modals/useAuthModal";
 import clsx from "clsx";
 
 interface ListItemProps {

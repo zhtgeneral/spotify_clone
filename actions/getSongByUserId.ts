@@ -2,15 +2,23 @@ import { Song } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-const getSongsByUserId = async (): Promise<Song[]> => {
-	// from supabase docs
+/** 
+ * This function gets all the songs created by the current user.
+ * 
+ * It returns the songs ordered by most recently created.
+ * 
+ * It returns no songs is the user is not logged in.
+ */
+export default async function getSongsByUserId(): Promise<Song[]> {
 	const supabase = createServerComponentClient({
 		cookies: cookies,
 	});
-	const { data: sessionData, error: sessionError } =
-		await supabase.auth.getSession();
+	const { 
+		data: sessionData, 
+		error: sessionError 
+	} = await supabase.auth.getSession();
 
-	if (sessionError) {
+	if (!sessionData.session || sessionError) {
 		console.log(sessionError);
 		return [];
 	}
@@ -21,8 +29,9 @@ const getSongsByUserId = async (): Promise<Song[]> => {
 		.eq("user_id", sessionData.session?.user.id)
 		.order("created_at", { ascending: false });
 
-	if (error) console.log(error.message);
+	if (error) {
+		console.log("getSongsByUserId error: " + error.message);
+	}
 
-	return (data as any) || [];
+	return data || [];
 };
-export default getSongsByUserId;

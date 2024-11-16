@@ -1,6 +1,6 @@
 "use client";
 
-import useAuthModal from "@/hooks/useAuthModal";
+import useAuthModal from "@/hooks/modals/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";

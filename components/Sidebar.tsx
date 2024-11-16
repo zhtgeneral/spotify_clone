@@ -36,7 +36,7 @@ const SideBar: React.FC<SideBarProps> = ({
 			{
 				icon: HiHome,
 				label: "Home",
-				active: pathname !== "/search",
+				active: pathname === "/",
 				href: "/",
 			},
 			{

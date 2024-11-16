@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import useAuthModal from "@/hooks/useAuthModal";
+import useAuthModal from "@/hooks/modals/useAuthModal";
 
 /**
  * This component renders the Signup and Login button.
