@@ -18,3 +18,6 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+export const PASSWORD = process.env.PASSWORD as string;
+export const VALID_EMAIL = process.env.VALID_EMAIL as string;
