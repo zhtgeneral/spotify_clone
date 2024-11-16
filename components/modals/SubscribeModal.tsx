@@ -1,7 +1,5 @@
 "use client";
 
-import { postData } from "@/libs/helpers";
-import { getStripe } from "@/libs/stripeClient";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Price, ProductWithPrice } from "@/types";
@@ -16,9 +14,21 @@ interface SubscribeModalProps {
 }
 
 /**
- * This component handles displaying each product in a modal.
+ * This component handles displaying each product in a modal with loading states.
  * 
+ * If the user is not logged in, it will not show the products.
  * 
+ * If the user has a currently active subscription, 
+ * the products are not rendered and a thank you message is shown.
+ * 
+ * Otherwise selecting a product will redirect the user to a Stripe checkout session.
+ * 
+ * On successful checkout, the user is redirected to `/account`.
+ * 
+ * On canceled checkout, the user is redirected to `/`.
+ * 
+ * @requires `/api/create-checkout-session` has `success_url` and `cancel_url` set
+ * @requires `MyUserContextProvider` wraps the component
  */
 const SubscribeModal: React.FC<SubscribeModalProps> = ({ 
 	products
@@ -27,19 +37,23 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
 	const { user, isLoading, subscription } = useUser();
 	const [modalOpen, setModalOpen] = useState(true);
 
-	const handleModalChange = () => {
-		modalOpen ? setModalOpen(true) : setModalOpen(false);
+	function handleModalChange() {
+		if (modalOpen) {
+			setModalOpen(false);
+		}	else {
+			setModalOpen(true);
+		}
 	};
 
-	const handleCheckout = async (price: Price) => {
+	async function handleCheckout(price: Price) {
 		setPriceIDLoading(price.id);
 		if (!user) {
 			setPriceIDLoading(undefined);
-			return toast.error("must be logged in");
+			return toast.error("Must be logged in to see subscriptions");
 		}
 		if (subscription) {
 			setPriceIDLoading(undefined);
-			return toast("Already subscribed");
+			return toast("Thanks! You already subscribed");
 		}
 		try {
 			const { data } = await axios.post("/api/create-checkout-session", { 
@@ -69,7 +83,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
 							onClick={() => handleCheckout(price)}
 							disabled={isLoading || price.id === priceIDLoading}
 						>
-							{`Subscribe for ${formatPrice(price)} for ${price.interval}`}
+							{`Subscribe for ${formatPrice(price)} a ${price.interval}`}
 						</Button>
 					));
 				})}
@@ -82,8 +96,8 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
 	}
 	return (
 		<Modal
-			title="Only for premium users"
-			description="listen to music with Music App Gold"
+			title="This feature is only for premium users"
+			description="Get unlimited cookies with Music App Gold"
 			isOpen={modalOpen}
 			onChange={handleModalChange}
 		>

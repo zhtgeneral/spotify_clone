@@ -2,26 +2,22 @@
 
 import * as RadixSlider from "@radix-ui/react-slider";
 
+interface SliderProps {
+	value: number,
+	onChange: (value: number) => void;
+}
+
 /**
-	Component that renders a slider.
-  
-  The slider is horizontal, thin, white. The current value of the slider is a bar that shows the current value
-   
-  The slider steps by ```0.1``` and is from ```[0, 1]```
-  
-   @param value Optional ```number``` and defaults to 1
-	 @param onChange Optional ```(value: number) => void``` that handles the change in value
-   @returns {JSX.Element}
+ * This component renders a slider that controls `onChange` by 0.1 step.
+ * 
+ * The default value of the slide is 1.
  */
-const Slider = ({
+const Slider: React.FC<SliderProps> = ({
 	value = 1,
 	onChange,
-}: {
-	value?: number;
-	onChange?: (value: number) => void;
 }) => {
 	const handleChange = (newValue: number[]) => {
-		onChange?.(newValue[0]);
+		onChange(newValue[0]);
 	};
 
 	return (
@@ -31,7 +27,7 @@ const Slider = ({
 			value={[value]}
 			onValueChange={handleChange}
 			max={1}
-			step={0.1}
+			step={0.05}
 			aria-label="Volume"
 		>
 			<RadixSlider.Track className="bg-neutral-600 relative grow rounded-full h-[3px]">

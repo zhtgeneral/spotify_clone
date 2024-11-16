@@ -6,6 +6,9 @@ interface SubscribeModalStore {
 	onClose: () => void;
 }
 
+/**
+ * This hook gives global access to a subscribe modal's open state
+ */
 const useSubscribeModal = create<SubscribeModalStore>((set) => ({
 	isOpen: false,
 	onOpen: () => set({ isOpen: true }),
@@ -13,4 +16,3 @@ const useSubscribeModal = create<SubscribeModalStore>((set) => ({
 }));
 
 export default useSubscribeModal;
-// comes from zustand docs

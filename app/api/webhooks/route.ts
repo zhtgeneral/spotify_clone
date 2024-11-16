@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 
 	if (relevantEvents.has(event.type)) {
 		try {
-			handleEventType(event);
+			syncDataSupabase(event);
 		} catch (error: any) {
 			console.log(error);
 			return new NextResponse("Webhook Error", { status: HttpStatusCode.BadRequest });
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
  * 
  * If the type is not supported, it throws an error.
  */
-async function handleEventType(event: Stripe.Event) {
+async function syncDataSupabase(event: Stripe.Event) {
 	switch (event.type) {
 		case "product.created":
 		case "product.updated":

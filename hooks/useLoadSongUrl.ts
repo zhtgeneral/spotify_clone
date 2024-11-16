@@ -2,18 +2,17 @@ import { Song } from "@/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 /**
- * Fetches Song url from Supabase
- * @param song Song
- * @returns string
+ * This hook gets the songs url of the song from Supabase. 
+ * 
+ * If there is no song, it return an empty string.
  */
 const useLoadSongUrl = (song: Song) => {
+	if (!song) {
+		return "";
+	}
 	const supabaseClient = useSupabaseClient();
-	if (!song) return "";
-
-	const { data: songData } = supabaseClient.storage
-		.from("songs")
-		.getPublicUrl(song.song_path);
-	return songData.publicUrl;
+	const { data } = supabaseClient.storage.from("songs").getPublicUrl(song.song_path);
+	return data.publicUrl;
 };
 
 export default useLoadSongUrl;

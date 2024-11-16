@@ -8,6 +8,11 @@ interface PlayerStore {
 	reset: () => void;
 }
 
+/**
+ * This hook gives global access to the sound player's status.
+ * 
+ * The user player holds the `ids` of all the songs and `activeId`
+ */
 const usePlayer = create<PlayerStore>((set) => ({
 	ids: [],
 	activeId: undefined,
@@ -17,4 +22,3 @@ const usePlayer = create<PlayerStore>((set) => ({
 }));
 
 export default usePlayer;
-// comes from zustand docs

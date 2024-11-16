@@ -1,24 +1,46 @@
 "use client";
 
 import useUploadModal from "@/hooks/useUpload";
+import { useUser } from "@/hooks/useUser";
 import { useState } from "react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
+import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import toast from "react-hot-toast";
-import { useUser } from "@/hooks/useUser";
 import uniqid from "uniqid";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
+
+/**
+ * This component handles displaying the form to upload a song.
+ * 
+ * It displays inputs for song's title, author, song, and thumbnail.
+ * 
+ * If any of the fields are empty, the form is not submitted 
+ * and a error message appears.
+ * 
+ * Otherwise it submits the song and thumbnail to Supabase storage,
+ * and creates a song record in Supabase.
+ * 
+ * It then closes the modal and displays a success message.
+ * 
+ * If song upload fails, it displays an error for failed Song upload.
+ * If image upload fails, it displays an error for failed Image upload.
+ * If database upload fails, it displays an error for failed database upload.
+ * 
+ * If for some reason the user is not logged in, it displays a error message for not logged in.
+ * 
+ * @requires user needs to be logged in. 
+ */
 const UploadModal = () => {
 	const supabaseClient = useSupabaseClient();
 	const router = useRouter();
 	const { user } = useUser();
-	const [isLoading, setIsLoading] = useState(false);
 	const uploadModal = useUploadModal();
+	const [isLoading, setIsLoading] = useState(false);
+
 	const { register, handleSubmit, reset } = useForm<FieldValues>({
 		defaultValues: {
 			author: "",
@@ -40,7 +62,11 @@ const UploadModal = () => {
 			setIsLoading(true);
 			const imageFile = values.image?.[0];
 			const songFile = values.song?.[0];
-			if (!imageFile || !songFile || !user) {
+			if (!user) {
+				toast.error("Need to be logged in to use this feature");
+				return;
+			}
+			if (!imageFile || !songFile) {
 				toast.error("Missing fields");
 				return;
 			}
@@ -52,26 +78,23 @@ const UploadModal = () => {
 					cacheControl: "3600",
 					upsert: false,
 				});
-
 			if (songError) {
 				setIsLoading(false);
 				return toast.error("Failed song upload");
 			}
 
-			const { data: imageData, error: imageError } =
-				await supabaseClient.storage
-					.from("images")
-					.upload(`image-${values.title}-${uniqueID}`, imageFile, {
-						cacheControl: "3600",
-						upsert: false,
-					});
-
+			const { data: imageData, error: imageError } = await supabaseClient.storage
+				.from("images")
+				.upload(`image-${values.title}-${uniqueID}`, imageFile, {
+					cacheControl: "3600",
+					upsert: false,
+				});
 			if (imageError) {
 				setIsLoading(false);
 				return toast.error("Failed image upload");
 			}
 
-			const { error: supabaseError } = await supabaseClient
+			const { error } = await supabaseClient
 				.from("songs")
 				.insert({
 					user_id: user.id,
@@ -80,10 +103,9 @@ const UploadModal = () => {
 					image_path: imageData.path,
 					song_path: songData.path,
 				});
-
-			if (supabaseError) {
+			if (error) {
 				setIsLoading(false);
-				return toast.error(supabaseError.message);
+				return toast.error(error.message);
 			}
 
 			router.refresh();
@@ -91,7 +113,7 @@ const UploadModal = () => {
 			toast.success("Song created");
 			uploadModal.onClose();
 		} catch (error) {
-			toast.error("something went wrong");
+			toast.error("Something went wrong");
 		} finally {
 			setIsLoading(false);
 		}

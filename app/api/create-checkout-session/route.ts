@@ -22,7 +22,7 @@ import { NextRequest, NextResponse } from "next/server";
  * 
  * If any other error occurs, it returns a `500` error for `Internal Error`.
  */
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
 	const { price, quantity = 1, metadata = {} } = await request.json();
 
 	try {

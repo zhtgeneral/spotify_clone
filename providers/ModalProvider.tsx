@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { ProductWithPrice } from "@/types";
-import AuthModal from "@/components/AuthModal";
-import SubscribeModal from "@/components/SubscribeModal";
-import UploadModal from "@/components/UploadModal";
+import AuthModal from "@/components/modals/AuthModal";
+import SubscribeModal from "@/components/modals/SubscribeModal";
+import UploadModal from "@/components/modals/UploadModal";
 
 interface ModalProviderProps {
 	products: ProductWithPrice[]

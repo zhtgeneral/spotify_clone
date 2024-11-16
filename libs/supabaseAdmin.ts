@@ -164,7 +164,7 @@ export async function onSubscriptionChange(
 	}
 
 	const id = result.data.id;
-	const subscription = await stripe.subscriptions.retrieve(subscriptionId, { expand: ["default payment method"] });
+	const subscription = await stripe.subscriptions.retrieve(subscriptionId, { expand: ["default_payment_method"] });
 	const subscriptionData: Database["public"]["Tables"]["subscriptions"]["Insert"] = {
 		id: subscription.id,
 		user_id: id,
@@ -182,6 +182,7 @@ export async function onSubscriptionChange(
 		trial_start: formatDate(subscription.trial_start),
 		trial_end: formatDate(subscription.trial_end)
 	};
+	console.log("subscription: " + JSON.stringify(subscriptionData,null,2));
 	const upsert = await supabaseAdmin.from("subscriptions").upsert([subscriptionData]);
 	if (upsert.error) {
 		throw upsert.error;

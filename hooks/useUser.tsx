@@ -19,18 +19,27 @@ type UserContextType = {
   subscription: Subscription | null;
 };
 
+/** This user context includes info about 
+ * `accessToken`, `user`, `userDetails`, `isLoading`, `subscription` 
+ */
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 interface Props {
   children: React.ReactNode;
 }
 
+/**
+ * This context provider gives global access to the hook `useUser`.
+ * 
+ * It gives global access to `accessToken`, `user`, `userDetails`, `isLoading`, `subscription`.
+ */
 export const MyUserContextProvider: React.FC<Props> = ({
   children
 }) => {
   const { session, isLoading: isLoadingUser, supabaseClient } = useSessionContext();
   const user = useSupaUser();
   const accessToken = session?.access_token ?? null;
+  
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
@@ -59,7 +68,8 @@ export const MyUserContextProvider: React.FC<Props> = ({
           }
           setIsLoadingData(false);
         });
-    } else if (!user && !isLoadingUser && !isLoadingData) {
+    } 
+    else if (!user && !isLoadingUser && !isLoadingData) {
       setUserDetails(null);
       setSubscription(null);
     }
@@ -73,9 +83,16 @@ export const MyUserContextProvider: React.FC<Props> = ({
     subscription,
   };
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={value}>
+      {children}
+    </UserContext.Provider>
+  )
 };
 
+/**
+ * This hook gives global access to `accessToken`, `user`, `userDetails`, `isLoading`, `subscription`.
+ */
 export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {

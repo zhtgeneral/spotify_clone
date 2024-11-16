@@ -9,7 +9,19 @@ interface PageContentProps {
 }
 
 /**
- * This component shows all the songs by most recently added 
+ * This component shows all the songs by most recently added.
+ * 
+ * If there are no songs, it displays a message that no songs are available.
+ * 
+ * For 2xl screens it displays songs in a grid of 8 x h.
+ * 
+ * For xl screens it displays songs in a grid of 5 x h.
+ * 
+ * For lg screens it displays songs in a grid of 4 x h.
+ * 
+ * For sm and md screens it displays songs in a grid of 3 x h.
+ * 
+ * For smaller screens, it displays songs in a grid of 2 x h.
  */
 const PageContent: React.FC<PageContentProps> = ({ 
 	songs
@@ -32,7 +44,7 @@ const PageContent: React.FC<PageContentProps> = ({
 				<SongItem
 					key={item.id}
 					onClick={(id: string) => onPlay(id)}
-					data={item}
+					song={item}
 				/>
 			))}
 		</div>

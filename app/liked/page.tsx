@@ -1,5 +1,5 @@
 import getLikedSongs from "@/actions/getLikedSongs";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import Image from "next/image";
 import LikedContent from "./components/LikedContent";
 
