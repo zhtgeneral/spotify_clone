@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Modal from "../Modal";
+import Modal from "@/components/modals/Modal";
 import {
 	useSessionContext,
 	useSupabaseClient,
@@ -11,8 +11,18 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useEffect } from "react";
 
+/**
+ * This component handles displaying the login and register form.
+ * 
+ * It renders the social logins with `Google` and `Github`.
+ * 
+ * It renders inputs for email address and password on login or register mode
+ * and a sign in / sign up button.
+ * 
+ * On login mode, it shows a link to login using magic link email.
+ * On login mode, it shows a link to reset password.
+ */
 const AuthModal = () => {
-	// comes from supabase docs for login using auth
 	const supabaseClient = useSupabaseClient();
 	const { session } = useSessionContext();
 
@@ -26,8 +36,10 @@ const AuthModal = () => {
 		}
 	}, [session, router, onClose]);
 
-	const onChange = () => {
-		if (isOpen) onClose();
+	function onChange() {
+		if (isOpen) {
+			onClose();
+		}
 	};
 
 	return (

@@ -8,7 +8,7 @@ interface SliderProps {
 }
 
 /**
- * This component renders a slider that controls `onChange` by 0.1 step.
+ * This component renders a slider that controls `onChange` by 0.05 step.
  * 
  * The default value of the slide is 1.
  */

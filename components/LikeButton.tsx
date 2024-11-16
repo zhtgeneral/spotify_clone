@@ -3,51 +3,59 @@
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 
-import { useSessionContext } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
+interface LikeButtonProps {
+	songId: string
+}
+
 /**
-  Component that when clicked on, puts a like on the song for the current user.
-
-	Renders a heart icon that is filled when song is liked and otherwise outline.
-
-	When clicked on, it checks if the user if logged in. If not, it opens up the login modal.
-	Otherwise it adds the song into the user's liked playlist.
-
-	If the song is liked and clicked again, it removes the like from the database.
-
-  @param songId id of the song that gets liked
-  @returns 
+ * This component puts a like on the song for the current user.
+ * 
+ * If the user is not logged in, it opens the Auth modal 
+ * and prompts the user to log in.
+ * 
+ * It renders a filled heart icon if liked.
+ * Otherwise it renders an outline heart icon.
+ * 
+ * On like status change, it displays a message to the user.
  */
-const LikeButton = ({ songId }: { songId: string }) => {
-	const router = useRouter();
-	const { supabaseClient } = useSessionContext();
-
-	const authmodal = useAuthModal();
-	const { user } = useUser();
+const LikeButton: React.FC<LikeButtonProps> = ({ 
+	songId
+}) => {
 	const [isLiked, setIsLiked] = useState(false);
 
+	const router = useRouter();
+	const supabaseClient = useSupabaseClient()
+	const authmodal = useAuthModal();
+	const { user } = useUser();
+
 	useEffect(() => {
-		if (!user?.id) return;
-		const fetchData = async () => {
+		if (!user || !user?.id) {
+			return;
+		}
+		async function fetchData() {
 			const { data, error } = await supabaseClient
 				.from("liked_songs")
 				.select("*")
-				.eq("user_id", user.id)
+				.eq("user_id", user?.id)
 				.eq("song_id", songId)
-				.single();
-			if (!error && data) setIsLiked(true);
+				.maybeSingle();
+			if (!error && data) {
+				setIsLiked(true);
+			}
 		};
 		fetchData();
-	}, [songId, supabaseClient, user?.id]);
+	}, [songId, supabaseClient, user, user?.id]);
 
-	const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
-
-	const handleLike = async () => {
-		if (!user) authmodal.onOpen();
+	async function handleLike() {
+		if (!user) {
+			authmodal.onOpen();
+		}
 		if (isLiked) {
 			const { error } = await supabaseClient
 				.from("liked_songs")
@@ -62,7 +70,10 @@ const LikeButton = ({ songId }: { songId: string }) => {
 		} else {
 			const { error } = await supabaseClient
 				.from("liked_songs")
-				.insert({ song_id: songId, user_id: user?.id });
+				.insert({ 
+					song_id: songId, 
+					user_id: user?.id 
+				});
 			if (error) {
 				toast.error(error.message);
 			} else {
@@ -73,9 +84,16 @@ const LikeButton = ({ songId }: { songId: string }) => {
 		router.refresh();
 	};
 
+	const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
 	return (
-		<button onClick={handleLike} className="hover:opacity-75 transition">
-			<Icon color={isLiked ? "#22c55e" : "white"} size={25} />
+		<button 
+			onClick={handleLike} 
+			className="hover:opacity-75 transition"
+		>
+			<Icon 	
+				color={isLiked ? "#22c55e" : "white"} 
+				size={25} 
+			/>
 		</button>
 	);
 };

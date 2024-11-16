@@ -23,6 +23,7 @@
 		"@supabase/supabase-js": "^2.39.2",
 		"axios": "^1.7.7",
 		"bufferutil": "^4.0.8",
+		"clsx": "^2.1.1",
 		"cypress": "^13.6.2",
 		"next": "^13.5.6",
 		"query-string": "^8.1.0",

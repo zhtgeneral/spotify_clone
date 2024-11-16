@@ -13,7 +13,7 @@ import PlayerContent from "@/components/Player/PlayerContent";
  * 
  * Otherwise it displays the song player.
  */
-const Player = () => {
+const PlayerController = () => {
 	const player = usePlayer();
 	const { song } = useGetSongById(player.activeId);
 
@@ -32,4 +32,4 @@ const Player = () => {
 	);
 };
 
-export default Player;
+export default PlayerController;

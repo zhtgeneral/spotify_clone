@@ -3,29 +3,27 @@
 import useLoadImage from "@/hooks/useLoadImage";
 import { Song } from "@/types";
 import Image from "next/image";
-/**
-	Component that renders the icon of a media item
 
-	Renders the image of a song and when clicked on, sets the global state song.
-
-	Renders rounded border of dark gray. When hovered over, 
-	displays the play button and the background color lightens.
-
-  @param onClick passes the song into onClick
-	@param data song
-  @returns JSX.Element
- */
-const MediaItem = ({
-	onClick,
-	data,
-}: {
+interface MediaItemProps {
 	onClick?: (id: string) => void;
 	data: Song;
+}
+
+/**
+ * This component renders the image of a song.
+ * 
+ * It starts the player when the item is clicked on.
+ */
+const MediaItem: React.FC<MediaItemProps> = ({
+	onClick,
+	data,
 }) => {
 	const imageUrl = useLoadImage(data);
-	const handleClick = () => {
-		if (onClick) return onClick(data.id);
-		// should turn on player
+
+	function handleClick() {
+		if (onClick) {
+			onClick(data.id);
+		}
 	};
 
 	return (
@@ -44,8 +42,12 @@ const MediaItem = ({
 				/>
 			</div>
 			<div className="flex flex-col gap-y-1 overflow-hidden">
-				<p className="text-white truncate">{data.title}</p>
-				<p className="text-neutral-400 text-sm truncate">{data.author}</p>
+				<p className="text-white truncate">
+					{data.title}
+				</p>
+				<p className="text-neutral-400 text-sm truncate">
+					{data.author}
+				</p>
 			</div>
 		</div>
 	);

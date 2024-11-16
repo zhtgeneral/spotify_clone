@@ -3,7 +3,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Price, ProductWithPrice } from "@/types";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 import Button from "@/components/Button";
 import { useUser } from "@/hooks/useUser";
 import formatPrice from "@/utils/formatPrice";

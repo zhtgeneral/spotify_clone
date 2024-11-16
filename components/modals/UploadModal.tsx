@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import uniqid from "uniqid";

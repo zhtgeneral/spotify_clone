@@ -1,27 +1,31 @@
 "use client";
 
+import { Song } from "@/types";
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
-import useAuthModal from "@/hooks/useAuthModal";
-import { useUser } from "@/hooks/useUser";
-import useUploadModal from "@/hooks/useUpload";
-import { Song } from "@/types";
 import MediaItem from "@/components/MediaItem";
+import useAuthModal from "@/hooks/useAuthModal";
+import useUploadModal from "@/hooks/useUpload";
+import { useUser } from "@/hooks/useUser";
 import useOnPlay from "@/hooks/useOnPlay";
+import React from "react";
 
+interface LibraryProps {
+	songs: Song[]
+}
+
+	
 /**
-	Component that renders the songs that the user has uploaded.
-
-	When the plus icon is clicked on, it checks if the user is logged in.
-	If the user is logged in, it opens a modal to add song.
-	Otherwise it opens the login modal.
-
-	When the list of the songs goes out of the screen, the list is scrollable vertically.
-
-  @param songs the songs that the user has uploaded
-  @returns JSX.Element
+ * This component renders the songs that the user has created.
+ * 
+ * It renders a `+` button that lets the user add songs.
+ * If the user is not logged in, it opens the Auth modal and prompts the user to login.
+ * 
+ * Otherwise it opens the Upload modal to let the user add a song.
  */
-const Library = ({ songs }: { songs: Song[] }) => {
+const Library: React.FC<LibraryProps> = ({ 
+	songs
+}) => {
 	const authModal = useAuthModal();
 	const uploadModal = useUploadModal();
 	const { user } = useUser();
@@ -29,8 +33,10 @@ const Library = ({ songs }: { songs: Song[] }) => {
 	const onPlay = useOnPlay(songs);
 
 	const onClick = () => {
-		if (!user) return authModal.onOpen();
-		//todo check for subscription
+		if (!user) {
+			return authModal.onOpen();
+		}
+		// TODO check for subscription
 		return uploadModal.onOpen();
 	};
 

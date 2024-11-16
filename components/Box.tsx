@@ -1,11 +1,17 @@
+import React from "react";
 import { twMerge } from "tailwind-merge";
 
-const Box = ({
+interface BoxProps {
+	children: React.ReactNode;
+	className?: string;	
+}
+
+/**
+ * This component renders a reusable box.
+ */
+const Box: React.FC<BoxProps> = ({
 	children,
 	className,
-}: {
-	children: React.ReactNode;
-	className?: string;
 }) => {
 	return (
 		<div
