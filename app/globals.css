@@ -8,4 +8,7 @@ body,
   height: 100%;
   background-color: black;
   color-scheme: dark;
+  --main: rgb(57 150 237);
+  --main-darken: color-mix(in srgb, var(--main) 50%, transparent);
+
 }

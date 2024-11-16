@@ -91,7 +91,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 			className="hover:opacity-75 transition"
 		>
 			<Icon 	
-				color={isLiked ? "#22c55e" : "white"} 
+				className={isLiked? "text-main" : "text-white"}
 				size={25} 
 			/>
 		</button>

@@ -55,7 +55,7 @@ const ListItem: React.FC<ListItemProps> = ({
 			<p className="font-medium truncate py-5">{name}</p>
 			<div className={clsx(`
 				absolute rounded-full flex items-center justify-center 
-				bg-green-500 p-4 right-5 drop-shadow-md
+				bg-main p-4 right-5 drop-shadow-md
 				opacity-0 transition group-hover:opacity-100 hover:scale-110
 			`)}>
 				<FaPlay className="text-black" />

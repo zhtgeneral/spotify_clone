@@ -10,7 +10,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, children, disabled, type = "button", ...props }, ref) => {
 		const style =
 			`w-full rounded-full 
-			bg-green-500 text-black font-bold 
+			bg-main text-black font-bold 
 			border border-transparent 
 			px-3 py-3 
 			disabled:cursor-not-allowed disabled:opacity-50 
