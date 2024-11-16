@@ -107,7 +107,7 @@ const UploadModal = () => {
 				setIsLoading(false);
 				return toast.error(error.message);
 			}
-
+			reset();
 			router.refresh();
 			setIsLoading(false);
 			toast.success("Song created");

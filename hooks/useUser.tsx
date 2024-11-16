@@ -44,7 +44,7 @@ export const MyUserContextProvider: React.FC<Props> = ({
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
 
-  const getUserDetails = () => supabaseClient.from("users").select("*").single();
+  const getUserDetails = () => supabaseClient.from("users").select("*").maybeSingle();
   const getSubscription = () => supabaseClient
     .from("subscriptions")
     .select("*, prices(*, products(*))")
@@ -73,7 +73,7 @@ export const MyUserContextProvider: React.FC<Props> = ({
       setUserDetails(null);
       setSubscription(null);
     }
-  }, [user, isLoadingUser, isLoadingData, userDetails, subscription]);
+  }, [isLoadingUser, isLoadingData, userDetails, subscription]);
 
   const value = {
     accessToken,
