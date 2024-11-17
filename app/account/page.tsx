@@ -1,5 +1,4 @@
 import Header from "@/components/Header/Header";
-import Image from "next/image";
 import AccountContent from "./components/AccountContent";
 
 const AccountPage = () => {

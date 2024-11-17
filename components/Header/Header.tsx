@@ -6,6 +6,7 @@ import TraverseButton from "@/components/Header/TraverseButton";
 import MenuButton from "@/components/Header/MenuButton";
 import LoggedInView from "@/components/Header/LoggedInView";
 import LoggedOutView from "@/components/Header/LoggedOutView";
+import toast from "react-hot-toast";
 
 interface HeaderProps {
 	children: React.ReactNode;

@@ -6,11 +6,11 @@ import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 
 import Box from "@/components/Box";
-import SidebarItem from "@/components/SidebarItem";
-import Library from "@/components/Library";
+import SidebarItem from "@/components/Sidebar/SidebarItem";
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
 import { twMerge } from "tailwind-merge";
+import Library from '@/components/Sidebar/Library';
 
 interface SideBarProps {
 	children: React.ReactNode;

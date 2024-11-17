@@ -1,6 +1,6 @@
-import { getURL } from "@/libs/helpers";
 import { stripe } from "@/libs/stripe";
 import { ensureCustomer } from "@/libs/supabaseAdmin";
+import { getURL } from "@/utils/getUrl";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { UserResponse } from "@supabase/supabase-js";
 import { HttpStatusCode } from "axios";

@@ -1,4 +1,3 @@
-import { getURL } from "@/libs/helpers";
 import { stripe } from "@/libs/stripe";
 import { ensureCustomer } from "@/libs/supabaseAdmin";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
@@ -6,6 +5,7 @@ import { UserResponse } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
+import { getURL } from "@/utils/getUrl";
 /**
  * This endpoint handles creating a Stripe billing portal session.
  * 
@@ -37,10 +37,6 @@ export async function POST() {
 			customer: customerId,
 			return_url: `${getURL()}/account`,
 		});
-		/**
-		 * TODO return `303` and redirect from here instead so client doesn't need to
-		 * @link https://docs.stripe.com/checkout/quickstart?client=next
-		 */ 
 		return NextResponse.json({ url: session.url }, { status: HttpStatusCode.Ok });
 	} catch (error: any) {
 		console.log(error);

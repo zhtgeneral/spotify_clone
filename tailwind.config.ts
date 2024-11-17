@@ -10,7 +10,8 @@ const config: Config = {
 		extend: {
 			colors: {
 				"main": "var(--main)",
-				"main-darken": "var(--main-darken)"
+				"main-darken": "var(--main-darken)",
+				"warn": "var(--warn)"
 			}
 		},
 	},
