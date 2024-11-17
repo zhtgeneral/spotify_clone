@@ -1,6 +1,6 @@
 "use client";
 
-import SongItem from "@/components/SongItem";
+import SongItem from "@/app/(site)/components/SongItem";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "@/types";
 

@@ -6,6 +6,7 @@ import TraverseButton from "@/components/Header/TraverseButton";
 import MenuButton from "@/components/Header/MenuButton";
 import LoggedInView from "@/components/Header/LoggedInView";
 import LoggedOutView from "@/components/Header/LoggedOutView";
+import toast from "react-hot-toast";
 
 interface HeaderProps {
 	children: React.ReactNode;
@@ -29,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({
 	return (
 		<div
 			className={twMerge(
-				"h-fit bg-gradient-to-b from-emerald-800 p-6 mb-2",
+				"h-fit bg-gradient-to-b from-main-darken p-6 mb-2",
 				className
 			)}
 		>

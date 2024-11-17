@@ -2,18 +2,22 @@ import { Product } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-const getActiveProductsWithPrices = async (): Promise<Product[]> => {
-	// from supabase docs
+/**
+ * This function gets all the products with prices from Supabase.
+ * 
+ * @requires Stripe product and price events are synced into Supabase
+ */
+export default async function getActiveProductsWithPrices(): Promise<Product[]> {
 	const supabase = createServerComponentClient({ cookies: cookies });
 	const { data, error } = await supabase
 		.from("products")
 		.select("*, prices(*)")
 		.eq("active", true)
 		.eq("prices.active", true)
-		.order("metadata->index")
-		.order("unit_amount", { foreignTable: "prices" });
+		.order("metadata->index");
 
-	if (error) console.log(error);
-	return (data as any) || [];
+	if (error) {
+		console.log("getActiveProductsWithPrices error: " + error.message);
+	}
+	return data || [];
 };
-export default getActiveProductsWithPrices;

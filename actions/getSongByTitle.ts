@@ -1,10 +1,17 @@
 import { Song } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import getSongs from "./getSongs";
+import getSongs from "@/actions/getSongs";
 
-const getSongsByTitle = async (title: string): Promise<Song[]> => {
-	// from supabase docs
+
+/**
+ * This function gets all the songs given the title from Supabase.
+ * 
+ * It returns the songs ordered by most recently created.
+ * 
+ * It returns all songs if the title is not specified.
+ */
+export default async function getSongsByTitle(title: string): Promise<Song[]> {
 	const supabase = createServerComponentClient({
 		cookies: cookies,
 	});
@@ -19,8 +26,10 @@ const getSongsByTitle = async (title: string): Promise<Song[]> => {
 		.ilike("title", `%${title}%`)
 		.order("created_at", { ascending: false });
 
-	if (error) console.log(error.message);
+	if (error) {
+		console.log(`getSongsByTitle title ${title} error: ` + error.message);
+	}
 
-	return (data as any) || [];
-};
-export default getSongsByTitle;
+	return data || [];
+}
+

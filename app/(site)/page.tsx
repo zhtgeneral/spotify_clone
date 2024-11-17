@@ -1,6 +1,6 @@
 import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header/Header";
-import ListItem from "@/components/ListItem";
+import ListItem from "@/app/(site)/components/ListItem";
 import PageContent from "./components/pageContent";
 
 /** This is used to disable caching */

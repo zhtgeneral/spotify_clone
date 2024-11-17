@@ -1,16 +1,20 @@
 import { Song } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import getSongs from "./getSongs";
 
-const getLikedSongs = async (): Promise<Song[]> => {
-	// from supabase docs
-	const supabase = createServerComponentClient({
-		cookies: cookies,
-	});
-	const {
-		data: { session },
-	} = await supabase.auth.getSession();
+/**
+ * This function returns all the liked songs of the current user.
+ * 
+ * It returns no songs if the user is not logged in,
+ * or if there is an error in fetching from Supabase.
+ */
+export default async function getLikedSongs(): Promise<Song[]> {
+	const supabase = createServerComponentClient({ cookies: cookies });
+	const { data: { session } } = await supabase.auth.getSession();
+
+	if (!session) {
+		return [];
+	}
 
 	const { data, error } = await supabase
 		.from("liked_songs")
@@ -19,7 +23,7 @@ const getLikedSongs = async (): Promise<Song[]> => {
 		.order("created_at", { ascending: false });
 
 	if (error) {
-		console.log(error.message);
+		console.log("getLikedSongs error: " + error.message);
 		return [];
 	}
 
@@ -31,4 +35,3 @@ const getLikedSongs = async (): Promise<Song[]> => {
 		...item.songs,
 	}));
 };
-export default getLikedSongs;

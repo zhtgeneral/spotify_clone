@@ -1,6 +1,6 @@
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
-import useAuthModal from "@/hooks/useAuthModal";
+import useAuthModal from "@/hooks/modals/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 
 /**

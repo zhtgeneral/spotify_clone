@@ -1,6 +1,6 @@
 "use client";
 
-import useUploadModal from "@/hooks/useUpload";
+import useUploadModal from "@/hooks/modals/useUploadModal";
 import { useUser } from "@/hooks/useUser";
 import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -107,7 +107,7 @@ const UploadModal = () => {
 				setIsLoading(false);
 				return toast.error(error.message);
 			}
-
+			reset();
 			router.refresh();
 			setIsLoading(false);
 			toast.success("Song created");

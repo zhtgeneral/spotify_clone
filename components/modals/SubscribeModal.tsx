@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import { useUser } from "@/hooks/useUser";
 import formatPrice from "@/utils/formatPrice";
 import axios from "axios";
+import useSubscribeModal from "@/hooks/modals/useSubscribeModal";
 
 interface SubscribeModalProps {
 	products: ProductWithPrice[]
@@ -35,13 +36,13 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
 }) => {
 	const [priceIDLoading, setPriceIDLoading] = useState<string>();
 	const { user, isLoading, subscription } = useUser();
-	const [modalOpen, setModalOpen] = useState(true);
+	const subscribeModal = useSubscribeModal();
 
 	function handleModalChange() {
-		if (modalOpen) {
-			setModalOpen(false);
+		if (subscribeModal.isOpen) {
+			subscribeModal.onClose()
 		}	else {
-			setModalOpen(true);
+			subscribeModal.onOpen();
 		}
 	};
 
@@ -56,7 +57,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
 			return toast("Thanks! You already subscribed");
 		}
 		try {
-			const { data } = await axios.post("/api/create-checkout-session", { 
+			const { data } = await axios.post("/api/checkout", { 
 				price 
 			});
 			window.location.href = data.url;
@@ -67,14 +68,22 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
 		}
 	};
 
-	let content = <div className="text-center">No products available</div>;
+	let content = (
+		<div className="text-center">
+			No products available.
+		</div>
+	)
 
 	if (products.length) {
 		content = (
 			<div>
 				{products.map((product: ProductWithPrice) => {
 					if (!product.prices?.length) {
-						return <div key={product.id}>No prices available.</div>;
+						return (
+							<div key={product.id}>
+								No prices available.
+							</div>
+						)
 					}
 					return product.prices.map((price) => (
 						<Button
@@ -92,13 +101,17 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
 	}
 
 	if (subscription) {
-		content = <div className="text-center">Already subscribed</div>;
+		content = (
+			<div className="text-center">
+				Already subscribed
+			</div>	
+		)
 	}
 	return (
 		<Modal
 			title="This feature is only for premium users"
 			description="Get unlimited cookies with Music App Gold"
-			isOpen={modalOpen}
+			isOpen={subscribeModal.isOpen}
 			onChange={handleModalChange}
 		>
 			{content}
