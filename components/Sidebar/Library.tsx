@@ -9,7 +9,6 @@ import useUploadModal from "@/hooks/modals/useUploadModal";
 import { useUser } from "@/hooks/useUser";
 import useOnPlay from "@/hooks/useOnPlay";
 import React from "react";
-import SubscribeModal from "./modals/SubscribeModal";
 import useSubscribeModal from "@/hooks/modals/useSubscribeModal";
 
 interface LibraryProps {
