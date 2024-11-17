@@ -1,4 +1,3 @@
-import useSoundController from "@/hooks/useSoundController";
 import { IconType } from "react-icons";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 
