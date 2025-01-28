@@ -1,16 +1,16 @@
 "use client";
 
-import { twMerge } from "tailwind-merge";
-import { useUser } from "@/hooks/useUser";
-import TraverseButton from "@/components/Header/TraverseButton";
-import MenuButton from "@/components/Header/MenuButton";
 import LoggedInView from "@/components/Header/LoggedInView";
 import LoggedOutView from "@/components/Header/LoggedOutView";
-import toast from "react-hot-toast";
+import MenuButton from "@/components/Header/MenuButton";
+import TraverseButton from "@/components/Header/TraverseButton";
+import { User } from "@supabase/supabase-js";
+import { twMerge } from "tailwind-merge";
 
 interface HeaderProps {
 	children: React.ReactNode;
 	className?: string;
+	user: User | null
 }
 
 /**
@@ -25,8 +25,8 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({
 	children,
 	className,
+	user
 }) => {
-	const { user } = useUser();
 	return (
 		<div
 			className={twMerge(

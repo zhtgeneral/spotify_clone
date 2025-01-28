@@ -1,7 +1,7 @@
 import Header from "@/components/Header/Header";
 import AccountContent from "./components/AccountContent";
 
-const AccountPage = () => {
+export default function AccountPage() {
 	return (
 		<div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
 			<Header className='from-bg-netural-900'>
@@ -15,5 +15,3 @@ const AccountPage = () => {
 		</div>
 	);
 };
-
-export default AccountPage;
