@@ -1,7 +1,7 @@
-import { Song } from "@/types";
 import SearchContent from '@/app/search/components/SearchContent';
-import Header from "@/components/Header/Header";
 import SearchInput from '@/app/search/components/SearchInput';
+import Header from "@/components/Header/Header";
+import { Song } from "@/types";
 
 interface SearchPresenterProps {
   songs: Song[]

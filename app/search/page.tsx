@@ -1,5 +1,5 @@
 import getSongsByTitle from "@/actions/getSongByTitle";
-import { SearchPresenter } from "./components/SearchPresenters";
+import { SearchPresenter } from "./components/SearchPresenter";
 
 interface SearchControllerProps {
 	searchParams: {

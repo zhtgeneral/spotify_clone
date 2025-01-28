@@ -1,10 +1,10 @@
 "use client";
 
+import Input from "@/components/Input";
 import useDebounce from "@/hooks/useDebounce";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
 import qs from "query-string";
-import Input from "@/components/Input";
+import { ChangeEvent, useEffect, useState } from "react";
 
 /**
  * This component handles the search input of the user.
@@ -14,7 +14,7 @@ import Input from "@/components/Input";
  * When the user begins typing into the search bar, 
  * it passes the query onto the URL params so the backend can query the results.
  */
-const SearchInput = () => {
+export default function SearchInput() {
 	const router = useRouter();
 	const [value, setValue] = useState<string>("");
 	const debouncedValue = useDebounce<string>(value, 500);
@@ -40,5 +40,3 @@ const SearchInput = () => {
 		/>
 	);
 };
-
-export default SearchInput;

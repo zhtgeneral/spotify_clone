@@ -1,4 +1,4 @@
-import { SearchPresenter } from '@/app/search/components/SearchPresenters';
+import { SearchPresenter } from '@/app/search/components/SearchPresenter';
 import UserProvider from '@/providers/UserProvider';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
