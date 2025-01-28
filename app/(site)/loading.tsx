@@ -5,8 +5,10 @@ import { BounceLoader } from "react-spinners";
 
 /**
  * This component renders a loading animation
+ * 
+ * @requires css variables needs be loaded
  */
-const Loading = () => {
+export default function Loading() {
 	return (
 		<Box className="h-full flex items-center justify-center">
 			<BounceLoader 
@@ -16,5 +18,3 @@ const Loading = () => {
 		</Box>
 	);
 };
-
-export default Loading;

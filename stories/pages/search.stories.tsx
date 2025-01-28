@@ -12,7 +12,25 @@ const mockSongs = [
     image_path: "mock image",
     author: "mock author",
     user_id: "mock id"
-  }
+  },
+  {
+    id: "mock id",
+    created_at: "2025-01-05 03:45:32.833949+00",
+    title: "mock song",
+    song_path: "mock song",
+    image_path: "mock image",
+    author: "mock author",
+    user_id: "mock id"
+  },
+  {
+    id: "mock id",
+    created_at: "2025-01-05 03:45:32.833949+00",
+    title: "mock song",
+    song_path: "mock song",
+    image_path: "mock image",
+    author: "mock author",
+    user_id: "mock id"
+  },
 ]
 
 /** This is the mock for app router context */
@@ -26,7 +44,7 @@ const createMockRouterContext = () => ({
 });
 
 const meta = {
-  title: 'search',
+  title: 'app/search',
   component: SearchPresenter,
   args: {
     songs: []
@@ -46,6 +64,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const NoSongs: Story = {};
+
+//  TODO causes supabaseClient.storage is undefined need to mock
 export const ManySong: Story = {
   args: {
     songs: mockSongs

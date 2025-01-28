@@ -1,10 +1,10 @@
 "use client"
 
-import Header from "@/components/Header/Header";
 import ListItem from '@/app/(site)/components/ListItem';
-import PageContent from './PageContent';
-import { Song } from "@/types";
+import Header from "@/components/Header/Header";
 import useOnPlay from "@/hooks/useOnPlay";
+import { Song } from "@/types";
+import PageContent from './PageContent';
 
 interface HomePresenterProps {
 	songs: Song[],

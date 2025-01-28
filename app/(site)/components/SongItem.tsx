@@ -1,10 +1,9 @@
 "use client";
 
-import useLoadImage from "@/hooks/useLoadImage";
-import Image from "next/image";
 import PlayButton from "@/components/PlayButton";
+import useLoadImage from "@/hooks/useLoadImage";
 import { Song } from "@/types";
-import React from "react";
+import Image from "next/image";
 
 interface SongItemProps {
 	onClick: (id: string) => void;
@@ -22,10 +21,10 @@ interface SongItemProps {
  *
  * @param onclick with `onClick: (id: string) => void` and `data: Song`
  */
-const SongItem: React.FC<SongItemProps> = ({
+export default function SongItem({
 	song,
 	onClick
-}) => {
+}: SongItemProps) {
 	const imagePath = useLoadImage(song);
 	return (
 		<div
@@ -56,5 +55,3 @@ const SongItem: React.FC<SongItemProps> = ({
 		</div>
 	);
 };
-
-export default SongItem;

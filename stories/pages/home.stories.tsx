@@ -15,11 +15,8 @@ const createMockRouterContext = () => ({
 });
 
 const meta = {
-  title: '(site)/page',
+  title: 'app/page',
   component: HomePresenter,
-  // parameters: {
-  //   layout: 'fullscreen',
-  // },
   args: {
     songs: [],
   },
@@ -39,16 +36,4 @@ type Story = StoryObj<typeof meta>;
 
 export const LoggedOut: Story = {};
 
-// export const LoggedIn: Story = {
-//   /** this is a script running a certain scenario */
-//   play: async ({ canvasElement }) => {
-//     const canvas = within(canvasElement);
-//     const loginButton = canvas.getByRole('button', { name: /Log in/i });
-//     await expect(loginButton).toBeInTheDocument();
-//     await userEvent.click(loginButton);
-//     await expect(loginButton).not.toBeInTheDocument();
-
-//     const logoutButton = canvas.getByRole('button', { name: /Log out/i });
-//     await expect(logoutButton).toBeInTheDocument();
-//   },
-// };
+// TODO mock logged in view

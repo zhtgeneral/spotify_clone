@@ -1,11 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { FaPlay } from "react-icons/fa";
-import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/modals/useAuthModal";
+import { useUser } from "@/hooks/useUser";
 import clsx from "clsx";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FaPlay } from "react-icons/fa";
 
 interface ListItemProps {
 	image: string;
@@ -19,11 +19,11 @@ interface ListItemProps {
  * If the user isn't logged in, it opens the Auth Modal.
  * Otherwise it takes the user to `/liked`.
  */
-const ListItem: React.FC<ListItemProps> = ({
+export default function ListItem({
 	image,
 	name,
 	href,
-}) => {
+}: ListItemProps) {
 	const router = useRouter();
 	const { user } = useUser();
 	const authModal = useAuthModal();
@@ -63,4 +63,3 @@ const ListItem: React.FC<ListItemProps> = ({
 		</button>
 	);
 };
-export default ListItem;
