@@ -144,7 +144,7 @@ TODO Cypress
 Storybook
 
 - `npx storybook@latest init`
-- Add autodocs in storybook config ([example](/.storybook/main.ts))
+- Add autodocs, and extend api url from env file in storybook config ([example](/.storybook/main.ts))
 
 ##### The rest of the implementation
 

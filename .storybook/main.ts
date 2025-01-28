@@ -18,6 +18,9 @@ const config: StorybookConfig = {
 	staticDirs: ["..\\public"],
 	docs: {
 		defaultName: 'Documentation'
-	}
+	},
+	env: (config) => ({
+		...config
+	})
 };
 export default config;
