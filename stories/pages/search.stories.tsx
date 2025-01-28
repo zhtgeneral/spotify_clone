@@ -3,6 +3,18 @@ import UserProvider from '@/providers/UserProvider';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
+const mockUser = {
+  id: "mock user",
+  full_name: "mock name",
+  avatar_url: null,
+  billing_address: null,
+  payment_method: null,
+  app_metadata: {},
+  user_metadata: {},
+  created_at: "2025-01-05 03:45:32.833949+00",
+  aud: "mock aud"
+}
+
 const mockSongs = [
   {
     id: "mock id",
@@ -47,7 +59,8 @@ const meta = {
   title: 'app/search',
   component: SearchPresenter,
   args: {
-    songs: []
+    songs: [],
+    user: mockUser
   },
   decorators: [
     (Story) => (
@@ -63,6 +76,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const LoggedOut: Story = {
+  args: {
+    user: null
+  }
+}
 export const NoSongs: Story = {};
 
 //  TODO causes supabaseClient.storage is undefined need to mock

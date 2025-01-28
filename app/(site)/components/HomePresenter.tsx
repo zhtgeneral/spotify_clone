@@ -5,9 +5,11 @@ import Header from "@/components/Header/Header";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "@/types";
 import PageContent from './PageContent';
+import { User } from '@supabase/supabase-js';
 
 interface HomePresenterProps {
 	songs: Song[],
+	user: User | null
 }
 
 /**
@@ -17,11 +19,12 @@ interface HomePresenterProps {
  */
 export function HomePresenter({
 	songs,
+	user
 }: HomePresenterProps) {
   const onPlay = useOnPlay(songs);	
 	return (
 		<div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
-			<Header>
+			<Header user={user}>
 				<h1 className="text-white text-3xl font-semibold">
 					Welcome Back
 				</h1>
