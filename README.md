@@ -145,6 +145,7 @@ Storybook
 
 - `npx storybook@latest init`
 - Add autodocs, and extend api url from env file in storybook config ([example](/.storybook/main.ts))
+- Create mocks for app router ([example](/stories/pages/home.stories.tsx))
 
 ##### The rest of the implementation
 

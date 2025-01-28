@@ -5,7 +5,8 @@ import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "@/types";
 
 interface PageContentProps {
-	songs: Song[]
+	songs: Song[],
+	onPlay: (id: string) => void
 }
 
 /**
@@ -23,11 +24,10 @@ interface PageContentProps {
  * 
  * For smaller screens, it displays songs in a grid of 2 x h.
  */
-const PageContent: React.FC<PageContentProps> = ({ 
-	songs
-}) => {
-	const onPlay = useOnPlay(songs);
-
+export default function PageContent({ 
+	songs,
+	onPlay
+}: PageContentProps) {
 	if (songs.length === 0) {
 		return (
 			<div>
@@ -50,5 +50,3 @@ const PageContent: React.FC<PageContentProps> = ({
 		</div>
 	);
 };
-
-export default PageContent;
