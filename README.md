@@ -141,6 +141,11 @@ TODO Cypress
 
 - need to refactor client database usage to REST API
 
+Storybook
+
+- `npx storybook@latest init`
+- Add autodocs in storybook config ([example](/.storybook/main.ts))
+
 ##### The rest of the implementation
 
 Modals:
