@@ -6,7 +6,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
  * 
  * If there is no song, it return an empty string.
  */
-const useLoadSongUrl = (song: Song) => {
+const useLoadSongUrl = (song: Song | undefined) => {
 	if (!song) {
 		return "";
 	}

@@ -1,5 +1,5 @@
 
-import { HomePresenter } from '@/app/(site)/components/HomePresenter';
+import Header from '@/components/Header/Header';
 import UserProvider from '@/providers/UserProvider';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
@@ -27,11 +27,11 @@ const createMockRouterContext = () => ({
 });
 
 const meta = {
-  title: 'app/home',
-  component: HomePresenter,
+  title: 'components/Header',
+  component: Header,
   args: {
-    songs: [],
-    user: null
+    user: null,
+    children: null
   },
   decorators: [
     (Story) => (
@@ -42,14 +42,14 @@ const meta = {
       </AppRouterContext.Provider>
     )
   ]
-} satisfies Meta<typeof HomePresenter>;
+} satisfies Meta<typeof Header>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const LoggedOut: Story = {};
-export const LoggedIn: Story = {
+export const SignedIn: Story = {
   args: {
     user: mockUser
   }
-}
+};

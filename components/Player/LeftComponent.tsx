@@ -11,9 +11,9 @@ interface LeftComponentProps {
  * 
  * It renders a small media item with the like button.
  */
-const LeftComponent: React.FC<LeftComponentProps> = ({
+export default function LeftComponent({
   song
-}) => {
+}: LeftComponentProps) {
   return (
     <div className="flex w-full justify-start">
       <div className="flex items-center gap-x-4">
@@ -23,4 +23,3 @@ const LeftComponent: React.FC<LeftComponentProps> = ({
     </div>
   )
 }
-export default LeftComponent

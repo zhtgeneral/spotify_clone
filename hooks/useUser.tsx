@@ -35,9 +35,9 @@ interface Props {
  * 
  * It gives global access to `accessToken`, `user`, `userDetails`, `isLoading`, `subscription`.
  */
-export const MyUserContextProvider: React.FC<Props> = ({
+export function MyUserContextProvider ({
   children
-}) => {
+}: Props) {
   const { session, isLoading: isLoadingUser, supabaseClient } = useSessionContext();
   const user = useSupaUser();
   const accessToken = session?.access_token ?? null;
@@ -94,8 +94,10 @@ export const MyUserContextProvider: React.FC<Props> = ({
 
 /**
  * This hook gives global access to `accessToken`, `user`, `userDetails`, `isLoading`, `subscription`.
+ * 
+ * @requires can only be called in a Client Component
  */
-export const useUser = () => {
+export function useUser() {
   const context = useContext(UserContext);
   if (context === undefined) {
     throw new Error("useUser must be used within a MyUserContextProvider");

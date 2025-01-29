@@ -1,17 +1,15 @@
 import getSongs from "@/actions/getSongs";
-import { HomePresenter } from "./components/HomePresenter";
-import { useUser } from "@/hooks/useUser";
+import { HomeControllerClient } from "./components/HomeController";
 
 /** This is used to disable caching */
 export const revalidate = 0;
 
-export default async function HomeController() {
+/**
+ * This functiong gets the songs from the server and gives it to the controller
+ */
+export default async function HomePage() {
 	const songs = await getSongs();
-	const { user } = useUser();
 	return (
-		<HomePresenter 
-			songs={songs} 
-			user={user}
-		/>
+		<HomeControllerClient songs={songs} />
 	)
 }

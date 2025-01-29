@@ -13,7 +13,7 @@ interface PlayerStore {
  * 
  * The user player holds the `ids` of all the songs and `activeId`
  */
-const usePlayer = create<PlayerStore>((set) => ({
+const usePlayerState = create<PlayerStore>((set) => ({
 	ids: [],
 	activeId: undefined,
 	setId: (id: string) => set({ activeId: id }),
@@ -21,4 +21,4 @@ const usePlayer = create<PlayerStore>((set) => ({
 	reset: () => set({ ids: [], activeId: undefined }),
 }));
 
-export default usePlayer;
+export default usePlayerState;

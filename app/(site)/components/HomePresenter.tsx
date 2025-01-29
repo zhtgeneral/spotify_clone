@@ -4,8 +4,9 @@ import ListItem from '@/app/(site)/components/ListItem';
 import Header from "@/components/Header/Header";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "@/types";
-import PageContent from './PageContent';
 import { User } from '@supabase/supabase-js';
+import PageContent from './PageContent';
+
 
 interface HomePresenterProps {
 	songs: Song[],

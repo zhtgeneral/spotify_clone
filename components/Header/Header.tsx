@@ -22,11 +22,11 @@ interface HeaderProps {
  * 
  * It renders the remaining liked songs inside the header.
  */
-const Header: React.FC<HeaderProps> = ({
+export default function Header({
 	children,
 	className,
 	user
-}) => {
+}: HeaderProps) {
 	return (
 		<div
 			className={twMerge(
@@ -48,5 +48,3 @@ const Header: React.FC<HeaderProps> = ({
 		</div>
 	);
 };
-
-export default Header;
