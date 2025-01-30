@@ -9,7 +9,7 @@ import { FaUserAlt } from "react-icons/fa";
  * 
  * @requires user needs to be logged in.
  */
-const LoggedInView = () => {
+export default function LoggedInView() {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   
@@ -40,4 +40,3 @@ const LoggedInView = () => {
     </div>
   )
 }
-export default LoggedInView;

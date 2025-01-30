@@ -48,8 +48,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const LoggedOut: Story = {};
-export const SignedIn: Story = {
+export const LoggedIn: Story = {
   args: {
     user: mockUser
   }
 };
+export const Children: Story = {
+  args: {
+    children: "Mock content"
+  }
+}
