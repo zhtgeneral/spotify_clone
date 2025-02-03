@@ -96,6 +96,7 @@ export function MyUserContextProvider ({
  * This hook gives global access to `accessToken`, `user`, `userDetails`, `isLoading`, `subscription`.
  * 
  * @requires can only be called in a Client Component
+ * @requires UserProvider must be around the component to call useUser.
  */
 export function useUser() {
   const context = useContext(UserContext);

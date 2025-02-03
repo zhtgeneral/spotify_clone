@@ -41,12 +41,7 @@ interface SubscribeModalProps {
  */
 export default function SubscribeModal({ 
 	products,
-	debug = {
-		subscription: null,
-		isOpen: true,
-		priceLoading: "",
-		userIsLoading: false
-	}
+	debug
 }: SubscribeModalProps) {
 	const subscribeModal = useSubscribeModal();
 	const { user, isLoading, subscription } = useUser();
@@ -161,7 +156,7 @@ export default function SubscribeModal({
 		content = renderProducts(products);
 	}
 
-	if (subscription || debug.subscription) {
+	if (subscription || debug?.subscription) {
 		content = (
 			<div className="text-center">
 				Already subscribed
