@@ -1,15 +1,14 @@
 "use client";
 
-import { Song } from "@/types";
-import { TbPlaylist } from "react-icons/tb";
-import { AiOutlinePlus } from "react-icons/ai";
 import MediaItem from "@/components/MediaItem";
 import useAuthModal from "@/hooks/modals/useAuthModal";
-import useUploadModal from "@/hooks/modals/useUploadModal";
-import { useUser } from "@/hooks/useUser";
-import useOnPlay from "@/hooks/useOnPlay";
-import React from "react";
 import useSubscribeModal from "@/hooks/modals/useSubscribeModal";
+import useUploadModal from "@/hooks/modals/useUploadModal";
+import useOnPlay from "@/hooks/useOnPlay";
+import { useUser } from "@/hooks/useUser";
+import { Song } from "@/types";
+import { AiOutlinePlus } from "react-icons/ai";
+import { TbPlaylist } from "react-icons/tb";
 
 interface LibraryProps {
 	songs: Song[]
@@ -23,19 +22,21 @@ interface LibraryProps {
  * If the user is not logged in, it opens the Auth modal and prompts the user to login.
  * 
  * Otherwise it opens the Upload modal to let the user add a song.
+ * 
+ * @requires UserProvider needs to be around this component.
+ * @requires SupabaseProvider needs to be aounrd this component.
  */
-const Library: React.FC<LibraryProps> = ({ 
+export default function Library({ 
 	songs
-}) => {
+}: LibraryProps) {
 	const authModal = useAuthModal();
 	const uploadModal = useUploadModal();
-	const subscribeModal = useSubscribeModal()
+	const subscribeModal = useSubscribeModal();
 	const { user, subscription } = useUser();
-
 
 	const onPlay = useOnPlay(songs);
 
-	const onClick = () => {
+	function onClick() {
 		if (!user) {
 			return authModal.onOpen();
 		}
@@ -59,7 +60,7 @@ const Library: React.FC<LibraryProps> = ({
 					id="upload-song"
 				/>
 			</div>
-			<div className="flex flex-col gap-y-2 mt-4 px-3" id="library-songs">
+			<div className="flex flex-col gap-y-2 my-4 px-3" id="library-songs">
 				{songs.map((item: Song) => (
 					<MediaItem
 						onClick={(id: string) => onPlay(id)}
@@ -71,4 +72,3 @@ const Library: React.FC<LibraryProps> = ({
 		</div>
 	);
 };
-export default Library;

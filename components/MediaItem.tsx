@@ -14,11 +14,13 @@ interface MediaItemProps {
  * This component renders the image of a song.
  * 
  * It starts the player when the item is clicked on.
+ * 
+ * @requires SupabaseContext needs to be around this component.
  */
-const MediaItem: React.FC<MediaItemProps> = ({
+export default function MediaItem({
 	onClick,
 	data,
-}) => {
+}: MediaItemProps) {
 	const player = usePlayer();
 	const imageUrl = useLoadImage(data);
 
@@ -55,5 +57,3 @@ const MediaItem: React.FC<MediaItemProps> = ({
 		</div>
 	);
 };
-
-export default MediaItem;

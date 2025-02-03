@@ -2,18 +2,18 @@
 
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+import { HiHome } from "react-icons/hi";
 
 import Box from "@/components/Box";
-import SidebarItem from "@/components/Sidebar/SidebarItem";
-import { Song } from "@/types";
-import usePlayer from "@/hooks/usePlayer";
-import { twMerge } from "tailwind-merge";
 import Library from '@/components/Sidebar/Library';
+import SidebarItem from "@/components/Sidebar/SidebarItem";
+import usePlayer from "@/hooks/usePlayer";
+import { Song } from "@/types";
+import { twMerge } from "tailwind-merge";
 
 interface SideBarProps {
-	children: React.ReactNode;
+	children?: React.ReactNode;
 	songs: Song[];
 }
 
@@ -24,11 +24,14 @@ interface SideBarProps {
  * When the links are clicked, they redirect the user to either `/` or `/search`.
  * 
  * If the player is active, the height of the sidebar decreases to make room for the player.
+ * 
+ * @requires UserProvider needs to be around this component.
+ * @requires SupabaseProvider needs to be aounrd this component.
  */
-const SideBar: React.FC<SideBarProps> = ({
+export default function SideBar({
 	children,
 	songs,
-}) => {
+}: SideBarProps) {
 	const player = usePlayer();
 	const pathname = usePathname();
 	const routes = useMemo(
@@ -80,5 +83,3 @@ const SideBar: React.FC<SideBarProps> = ({
 		</div>
 	);
 };
-
-export default SideBar;

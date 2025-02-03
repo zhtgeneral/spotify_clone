@@ -1,4 +1,5 @@
 
+import Box from '@/components/Box';
 import Header from '@/components/Header/Header';
 import UserProvider from '@/providers/UserProvider';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -16,6 +17,12 @@ const mockUser = {
   aud: "mock aud"
 }
 
+const mockChildren = (
+  <Box className="h-52 p-6">
+    Children
+  </Box>
+)
+
 /** This is the mock for app router context */
 const createMockRouterContext = () => ({
   push: () => Promise.resolve(true),
@@ -32,6 +39,9 @@ const meta = {
   args: {
     user: null,
     children: null
+  },
+  parameters: {
+    layout: 'fulscreen'
   },
   decorators: [
     (Story) => (
@@ -55,6 +65,6 @@ export const LoggedIn: Story = {
 };
 export const Children: Story = {
   args: {
-    children: "Mock content"
+    children: mockChildren
   }
 }

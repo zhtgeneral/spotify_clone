@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
-import "./globals.css";
-import SideBar from "../components/Sidebar/Sidebar";
-import SupabaseProvider from "@/providers/SupabaseProvider";
-import UserProvider from "@/providers/UserProvider";
-import ModalProvider from "@/providers/ModalProvider";
-import ToasterProvider from "../providers/ToasterProvider";
+import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getSongsByUserId from "@/actions/getSongByUserId";
 import PlayerController from "@/components/Player/PlayerController";
-import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
+import ModalProvider from "@/providers/ModalProvider";
+import SupabaseProvider from "@/providers/SupabaseProvider";
+import UserProvider from "@/providers/UserProvider";
+import type { Metadata } from "next";
+import { Figtree } from "next/font/google";
+import SideBar from "../components/Sidebar/Sidebar";
+import ToasterProvider from "../providers/ToasterProvider";
+import "./globals.css";
 
 const font = Figtree({ subsets: ["latin"] });
 

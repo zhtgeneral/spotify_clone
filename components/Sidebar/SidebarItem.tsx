@@ -16,12 +16,12 @@ interface SidebarItemProps {
  * 
  * If the link is active, it displays the text in white.
  */
-const SidebarItem: React.FC<SidebarItemProps> = ({
+export default function SidebarItem({
 	icon: Icon,
 	label,
 	active,
 	href,
-}) => {
+}: SidebarItemProps) {
 	const styles = `
 		flex flex-row h-auto items-center w-full 
 		gap-x-4 py-1 
@@ -37,5 +37,3 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 		</Link>
 	);
 };
-
-export default SidebarItem;

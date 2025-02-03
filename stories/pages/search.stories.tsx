@@ -1,5 +1,7 @@
 import { SearchPresenter } from '@/app/search/components/SearchPresenter';
+import SupabaseProvider from '@/providers/SupabaseProvider';
 import UserProvider from '@/providers/UserProvider';
+import { Song } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
@@ -15,34 +17,23 @@ const mockUser = {
   aud: "mock aud"
 }
 
-const mockSongs = [
+const mockSongs: Song[] = [
   {
     id: "mock id",
-    created_at: "2025-01-05 03:45:32.833949+00",
-    title: "mock song",
-    song_path: "mock song",
-    image_path: "mock image",
+    title: "mock title",
+    user_id: "mock user id",
     author: "mock author",
-    user_id: "mock id"
+    song_path: "song-test-m3ksjin5",
+    image_path: "image-test-m3ksjin5"
   },
   {
     id: "mock id",
-    created_at: "2025-01-05 03:45:32.833949+00",
-    title: "mock song",
-    song_path: "mock song",
-    image_path: "mock image",
+    title: "mock title",
+    user_id: "mock user id",
     author: "mock author",
-    user_id: "mock id"
-  },
-  {
-    id: "mock id",
-    created_at: "2025-01-05 03:45:32.833949+00",
-    title: "mock song",
-    song_path: "mock song",
-    image_path: "mock image",
-    author: "mock author",
-    user_id: "mock id"
-  },
+    song_path: "song-test-m3ksi7v4",
+    image_path: "image-test-m3ksi7v4"
+  }
 ]
 
 /** This is the mock for app router context */
@@ -65,9 +56,11 @@ const meta = {
   decorators: [
     (Story) => (
       <AppRouterContext.Provider value={createMockRouterContext()}>
-        <UserProvider>
-          <Story />
-        </UserProvider>
+        <SupabaseProvider>
+          <UserProvider>
+            <Story />
+          </UserProvider>
+        </SupabaseProvider>
       </AppRouterContext.Provider>
     )
   ]
