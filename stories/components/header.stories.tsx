@@ -4,6 +4,7 @@ import Header from '@/components/Header/Header';
 import UserProvider from '@/providers/UserProvider';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import mockRouterContext from '../../.storybook/mocks/MockRouterContext';
 
 const mockUser = {
   id: "mock user",
@@ -23,16 +24,6 @@ const mockChildren = (
   </Box>
 )
 
-/** This is the mock for app router context */
-const createMockRouterContext = () => ({
-  push: () => Promise.resolve(true),
-  replace: () => Promise.resolve(true),
-  refresh: () => Promise.resolve(),
-  back: () => Promise.resolve(),
-  forward: () => Promise.resolve(),
-  prefetch: () => Promise.resolve(),
-});
-
 const meta = {
   title: 'components/Header',
   component: Header,
@@ -45,7 +36,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <AppRouterContext.Provider value={createMockRouterContext()}>
+      <AppRouterContext.Provider value={mockRouterContext}>
         <UserProvider>
           <Story />
         </UserProvider>

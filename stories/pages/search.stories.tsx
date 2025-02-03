@@ -1,9 +1,6 @@
 import { SearchPresenter } from '@/app/search/components/SearchPresenter';
-import SupabaseProvider from '@/providers/SupabaseProvider';
-import UserProvider from '@/providers/UserProvider';
 import { Song } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
-import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const mockUser = {
   id: "mock user",
@@ -36,16 +33,6 @@ const mockSongs: Song[] = [
   }
 ]
 
-/** This is the mock for app router context */
-const createMockRouterContext = () => ({
-  push: () => Promise.resolve(true),
-  replace: () => Promise.resolve(true),
-  refresh: () => Promise.resolve(),
-  back: () => Promise.resolve(),
-  forward: () => Promise.resolve(),
-  prefetch: () => Promise.resolve(),
-});
-
 const meta = {
   title: 'app/search',
   component: SearchPresenter,
@@ -53,17 +40,6 @@ const meta = {
     songs: [],
     user: mockUser
   },
-  decorators: [
-    (Story) => (
-      <AppRouterContext.Provider value={createMockRouterContext()}>
-        <SupabaseProvider>
-          <UserProvider>
-            <Story />
-          </UserProvider>
-        </SupabaseProvider>
-      </AppRouterContext.Provider>
-    )
-  ]
 } satisfies Meta<typeof SearchPresenter>;
 
 export default meta;

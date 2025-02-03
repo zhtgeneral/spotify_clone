@@ -23,6 +23,7 @@ const config: StorybookConfig = {
 		...config
 	}),
 	webpackFinal: async (config) => {
+		/** This enables tailwind css to be loaded in storybook */
     if (config?.module?.rules) {
       config.module.rules.push({
         test: /\.css$/,
