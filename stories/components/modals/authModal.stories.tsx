@@ -1,14 +1,12 @@
-import UploadModal from '@/components/modals/UploadModal';
+import AuthModal from '@/components/modals/AuthModal';
 import type { Meta, StoryObj } from '@storybook/react';
 
 
 const meta = {
-  title: 'components/UploadModal',
-  component: UploadModal,
+  title: 'components/modals/AuthModal',
+  component: AuthModal,
   args: {
-    debug: {
-      isOpen: true
-    }
+    debugging: true
   },
   decorators: [
     (Story) => (
@@ -16,7 +14,7 @@ const meta = {
     )
   ],
   
-} satisfies Meta<typeof UploadModal>;
+} satisfies Meta<typeof AuthModal>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

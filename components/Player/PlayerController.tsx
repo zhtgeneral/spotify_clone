@@ -19,14 +19,15 @@ const debugging = true;
 export default function PlayerController() {
 	 const playerState = usePlayerState();
 
+	 const { song } = useGetSongById(playerState.activeId);
+	 const songUrl = useLoadSongUrl(song);
+	 
 	 const [volume, setVolume] = React.useState(1);
 	 const [isPlaying, setIsPlaying] = React.useState(false);
- 
-	 const { song } = useGetSongById(playerState.activeId);
 
-	 const songUrl = useLoadSongUrl(song);
-
-	 console.log(`songUrl: ${songUrl}`);
+	 if (debugging) {
+		 console.log(`songUrl: ${songUrl}`);
+	 }
 
 	 const changeVolume = React.useCallback((value: number) => {
 		 setVolume(value);

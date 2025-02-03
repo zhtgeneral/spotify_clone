@@ -40,7 +40,7 @@ const meta = {
     songs: []
   },
   parameters: {
-    layout: 'fulscreen'
+    layout: 'fullscreen'
   },
   decorators: [
     (Story) => (

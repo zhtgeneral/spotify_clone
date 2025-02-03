@@ -2,13 +2,6 @@
 import Input from '@/components/Input';
 import type { Meta, StoryObj } from '@storybook/react';
 
-
-const mockChildren = (
-  <div className="h-52 p-2">
-    mock
-  </div>
-)
-
 const meta = {
   title: 'components/Input',
   component: Input,

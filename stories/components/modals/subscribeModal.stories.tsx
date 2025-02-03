@@ -76,7 +76,7 @@ const debug = {
 }
 
 const meta = {
-  title: 'components/SubcribeModal',
+  title: 'components/modals/SubcribeModal',
   component: SubscribeModal,
   args: {
     debug: debug,
