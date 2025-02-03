@@ -1,35 +1,70 @@
 "use client";
 
+import PlayerPresenter from "@/components/Player/PlayerPresenter";
 import useGetSongById from "@/hooks/useGetSongById";
 import useLoadSongUrl from "@/hooks/useLoadSongUrl";
-import usePlayer from "@/hooks/usePlayer";
-import PlayerContent from "@/components/Player/PlayerContent";
+import usePlayerState from "@/hooks/usePlayer";
+import useSoundController from "@/hooks/useSoundController";
+import React from "react";
+
+const debugging = true;
 
 /**
- * This component handles rendering the player.
+ * This component handles the control of the player.
  * 
- * If there is no song, song url, or active id on the player,
- * it doesn't displayer the player.
+ * If there is no song, songUrl or it is not active, it doesn't show the player.
  * 
- * Otherwise it displays the song player.
+ * Otherwise it passes relevant info to the presenter
  */
-const PlayerController = () => {
-	const player = usePlayer();
-	const { song } = useGetSongById(player.activeId);
+export default function PlayerController() {
+	 const playerState = usePlayerState();
 
-	const songUrl = useLoadSongUrl(song!);
-	if (!song || !songUrl || !player.activeId) {
+	 const { song } = useGetSongById(playerState.activeId);
+	 const songUrl = useLoadSongUrl(song);
+	 
+	 const [volume, setVolume] = React.useState(1);
+	 const [isPlaying, setIsPlaying] = React.useState(false);
+
+	 if (debugging) {
+		 console.log(`songUrl: ${songUrl}`);
+	 }
+
+	 const changeVolume = React.useCallback((value: number) => {
+		 setVolume(value);
+	 }, []);
+ 
+	 const soundController = useSoundController(songUrl, volume, setIsPlaying);
+ 
+	 const togglePlay = React.useCallback(() => {
+		 if (isPlaying) {
+			 soundController.onPause();
+			 setIsPlaying(false);
+		 } else {
+			 soundController.onPlay();
+			 setIsPlaying(true);
+		 }
+	 }, [isPlaying]);
+
+
+	 const isActive = Boolean(playerState.activeId);  
+
+	 if (!song || !songUrl || !isActive) {
+		if (debugging) {
+			console.log("PlayerPresenter not displaying")
+		}
 		return null;
 	}
+
 	return (
-		<div className="fixed bottom-0 bg-black w-full py-2 h-[80px] px-4">
-			<PlayerContent 
-				key={songUrl} 
-				song={song} 
-				songUrl={songUrl} 
-			/>
-		</div>
+		<PlayerPresenter 
+			key={songUrl} 
+			song={song} 
+			volume={volume}
+			isPlaying={isPlaying}
+			onPlayNext={soundController.onPlayNext}
+    	onPlayPrev={soundController.onPlayPrev}
+			togglePlay={togglePlay}
+			changeVolume={changeVolume}
+		/>
 	);
 };
-
-export default PlayerController;

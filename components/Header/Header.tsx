@@ -1,16 +1,16 @@
 "use client";
 
-import { twMerge } from "tailwind-merge";
-import { useUser } from "@/hooks/useUser";
-import TraverseButton from "@/components/Header/TraverseButton";
-import MenuButton from "@/components/Header/MenuButton";
 import LoggedInView from "@/components/Header/LoggedInView";
 import LoggedOutView from "@/components/Header/LoggedOutView";
-import toast from "react-hot-toast";
+import MenuButton from "@/components/Header/MenuButton";
+import TraverseButton from "@/components/Header/TraverseButton";
+import { User } from "@supabase/supabase-js";
+import { twMerge } from "tailwind-merge";
 
 interface HeaderProps {
 	children: React.ReactNode;
 	className?: string;
+	user: User | null
 }
 
 /**
@@ -22,11 +22,11 @@ interface HeaderProps {
  * 
  * It renders the remaining liked songs inside the header.
  */
-const Header: React.FC<HeaderProps> = ({
+export default function Header({
 	children,
 	className,
-}) => {
-	const { user } = useUser();
+	user
+}: HeaderProps) {
 	return (
 		<div
 			className={twMerge(
@@ -48,5 +48,3 @@ const Header: React.FC<HeaderProps> = ({
 		</div>
 	);
 };
-
-export default Header;

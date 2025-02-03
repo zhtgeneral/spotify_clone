@@ -9,10 +9,10 @@ interface BoxProps {
 /**
  * This component renders a reusable box.
  */
-const Box: React.FC<BoxProps> = ({
+export default function Box({
 	children,
 	className,
-}) => {
+}: BoxProps) {
 	return (
 		<div
 			className={twMerge(`bg-neutral-900 rounded-lg h-fit w-full`, className)}
@@ -21,5 +21,3 @@ const Box: React.FC<BoxProps> = ({
 		</div>
 	);
 };
-
-export default Box;

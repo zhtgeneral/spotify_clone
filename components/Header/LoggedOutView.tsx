@@ -6,7 +6,7 @@ import useAuthModal from "@/hooks/modals/useAuthModal";
  * 
  * @requires user needs to be signed out.
  */
-const LoggedOutView = () => {
+export default function LoggedOutView(){
   const AuthModal = useAuthModal();
   return (
     <>
@@ -29,4 +29,3 @@ const LoggedOutView = () => {
     </>
   )
 }
-export default LoggedOutView;

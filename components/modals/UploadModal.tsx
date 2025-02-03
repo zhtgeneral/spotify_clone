@@ -1,16 +1,26 @@
 "use client";
 
+import Button from "@/components/Button";
+import Input from "@/components/Input";
+import Modal from "@/components/modals/Modal";
+
 import useUploadModal from "@/hooks/modals/useUploadModal";
 import { useUser } from "@/hooks/useUser";
-import { useState } from "react";
+
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import Modal from "@/components/modals/Modal";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
-import uniqid from "uniqid";
+import React from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import uniqid from "uniqid";
+
+interface Debug {
+	isOpen: boolean
+}
+
+interface UploadModalProps {
+	debug?: Debug
+}
 
 
 /**
@@ -18,28 +28,23 @@ import toast from "react-hot-toast";
  * 
  * It displays inputs for song's title, author, song, and thumbnail.
  * 
- * If any of the fields are empty, the form is not submitted 
- * and a error message appears.
- * 
- * Otherwise it submits the song and thumbnail to Supabase storage,
- * and creates a song record in Supabase.
- * 
- * It then closes the modal and displays a success message.
- * 
- * If song upload fails, it displays an error for failed Song upload.
- * If image upload fails, it displays an error for failed Image upload.
- * If database upload fails, it displays an error for failed database upload.
- * 
- * If for some reason the user is not logged in, it displays a error message for not logged in.
+ * If the user closes the modal, the form is reset.
+ * If the esc key is pressed, the form should reset.
  * 
  * @requires user needs to be logged in. 
+ * @requires SupabaseProvider needs to be around this component.
+ * @requires UserProvider needs to be around this component.
+ * @requires RouterContext needs to be around this component.
  */
-const UploadModal = () => {
-	const supabaseClient = useSupabaseClient();
-	const router = useRouter();
+export default function UploadModal({
+	debug
+}: UploadModalProps) {
 	const { user } = useUser();
+	const router = useRouter();
+	const supabaseClient = useSupabaseClient();
 	const uploadModal = useUploadModal();
-	const [isLoading, setIsLoading] = useState(false);
+
+	const [isLoading, setIsLoading] = React.useState(false);
 
 	const { register, handleSubmit, reset } = useForm<FieldValues>({
 		defaultValues: {
@@ -50,31 +55,59 @@ const UploadModal = () => {
 		},
 	});
 
-	const onChange = (open: boolean): void => {
+	let isModalOpen = uploadModal.isOpen;
+	if (debug) {
+		isModalOpen = debug.isOpen
+	}
+
+	/**
+	 * This function toggles the open state for the modal.
+	 * When the modal is closed, the form is reset.
+	 */
+	function onChange(open: boolean) {
 		if (!open) {
 			reset();
 			uploadModal.onClose();
 		}
 	};
-
+	/**
+	 * This function handles uploading song data.
+	 * 
+	 * If the user is not logged in, it displays a error message to the user.
+	 * 
+	 * If any of the fields are empty, the form is not submitted,
+	 * it displays a message to the user for missing fields.
+	 * 
+	 * Otherwise it submits the song and thumbnail to Supabase storage
+	 * in the form of `song-title-id` and `image-title-id`,
+	 * and creates a song record in Supabase table.
+	 * 
+	 * If a song, image, or database upload fails, it displays an error for that failed operation.
+	 * 
+	 * Otherwise it then closes the modal and displays a success message to the user.
+	 */
 	const onSubmit: SubmitHandler<FieldValues> = async (values) => {
 		try {
 			setIsLoading(true);
-			const imageFile = values.image?.[0];
-			const songFile = values.song?.[0];
 			if (!user) {
 				toast.error("Need to be logged in to use this feature");
 				return;
 			}
+
+			const imageFile = values.image?.[0];
+			const songFile = values.song?.[0];
 			if (!imageFile || !songFile) {
 				toast.error("Missing fields");
 				return;
 			}
-			const uniqueID = uniqid();
 
+			/**
+			 * TODO MOVE TO ACTIONS FOLDER AND HIDE FROM CLIENT.
+			 */
+			const uniqueId = uniqid();
 			const { data: songData, error: songError } = await supabaseClient.storage
 				.from("songs")
-				.upload(`song-${values.title}-${uniqueID}`, songFile, {
+				.upload(`song-${values.title}-${uniqueId}`, songFile, {
 					cacheControl: "3600",
 					upsert: false,
 				});
@@ -85,7 +118,7 @@ const UploadModal = () => {
 
 			const { data: imageData, error: imageError } = await supabaseClient.storage
 				.from("images")
-				.upload(`image-${values.title}-${uniqueID}`, imageFile, {
+				.upload(`image-${values.title}-${uniqueId}`, imageFile, {
 					cacheControl: "3600",
 					upsert: false,
 				});
@@ -103,10 +136,12 @@ const UploadModal = () => {
 					image_path: imageData.path,
 					song_path: songData.path,
 				});
+
 			if (error) {
 				setIsLoading(false);
 				return toast.error(error.message);
 			}
+
 			reset();
 			router.refresh();
 			setIsLoading(false);
@@ -123,7 +158,7 @@ const UploadModal = () => {
 		<Modal
 			title="Add a song"
 			description="Upload mp3 files"
-			isOpen={uploadModal.isOpen}
+			isOpen={isModalOpen}
 			onChange={onChange}
 		>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
@@ -166,5 +201,3 @@ const UploadModal = () => {
 		</Modal>
 	);
 };
-
-export default UploadModal;

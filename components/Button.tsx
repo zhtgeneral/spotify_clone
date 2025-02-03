@@ -14,7 +14,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			border border-transparent 
 			px-3 py-3 
 			disabled:cursor-not-allowed disabled:opacity-50 
-			hover:opacity-75 transition`;
+			hover:opacity-75
+			transition`;
 		return (
 			<button
 				type={type}

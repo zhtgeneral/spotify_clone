@@ -53,10 +53,10 @@ Supabase:
       - set Homepage URL as `http://localhost:3000` (need to change in prod)
       - copy and paste `https://<project id>.supabase.co/auth/v1/callback` into Github Authorization callback URL
       - copy and paste `Client ID` and `Client secret` from Github into Supabase auth providers
-  - setup Supabase Auth ([example](/components/modals/AuthModal.tsx))
+  - setup Supabase Auth:
     - `npm install @supabase/auth-ui-react` (for login screen)
     - `npm install @supabase/auth-ui-shared` (for login screen styles)
-    - use `<Auth>` and pass in `SupabaseClient`
+    - use `<Auth>` and pass in `SupabaseClient` ([example](/components/modals/AuthModal.tsx))
   
 (old version)
 
@@ -98,4 +98,73 @@ Supabase:
 - create an endpoint for `/auth/confirm`
   - exchange their secure code for an auth token when user confirms email with link
 
-TODO setup Stripe details
+Stripe:
+
+- `npm install stripe`
+- setup Account on Stripe dashboard:
+  - Create new account
+  - Developers
+  - API keys
+  - Copy and paste `Publishable key` and `Secret key` into environment variables
+- Create instance of stripe with `secret key` ([example](/libs/stripe.ts))
+- Setup Stripe checkout:
+  - create endpoint for `/checkout`
+  - use `stripe.checkout.sessions.create` to redirect to checkout form ([example](/app/api/checkout/route.ts))
+  - set `success_url` and `cancel_url`
+- Setup Stripe portal:
+  - Enable stripe customer portal on Stripe dashboard:
+    - Settings
+    - Billing
+    - Customer portal
+    - Activate test link
+  - create endpoint for `/portal`
+  - use `stripe.billingPortal.sessions.create` to redirect to portal form ([example](/app/api/portal/route.ts))
+- Setup webhooks to sync data across Stripe and database:
+  - Enable stripe webhooks on Stripe dashboard:
+    - Devlopers
+    - Event destinations
+    - Create an event destination
+    - Test in a local environment (need to add steps in prod)
+  - Download Stripe CLI (windows):
+    - `iwr -useb get.scoop.sh | iex` (installs Scoop as package manager for Stripe CLI)
+    - `scoop install stripe`
+    - `stripe login`
+    - `stripe listen --forward-to localhost:3000/api/webhooks`
+    - copy and paste `WEBHOOK_SIGNING_SECRET` into environment variables
+  - create endpoint / helper functions to sync stripe events data with database ([example](/libs/supabaseAdmin.ts)):
+  - create webhook endpoint to listen to `POST` requests ([example](/app/api/webhooks/route.ts)):
+    - create Stripe events using `stripe.webhooks.constructEvent` with `webhook signing secret` 
+    - monitor selected events and sync data with database
+  - manually test endpoint using CLI or Stripe Dashboard
+
+TODO Cypress
+
+- need to refactor client database usage to REST API
+
+Storybook
+
+- `npx storybook@latest init`
+- Add autodocs, and extend api url from env file in storybook config ([example](/.storybook/main.ts))
+- Create mocks for app router ([example](/stories/pages/home.stories.tsx))
+
+##### The rest of the implementation
+
+Modals:
+
+- `npm install zustand` and create stores for modal active states ([example](/hooks/modals/useAuthModal.ts))
+- create modals ([example](/components/modals/AuthModal.tsx), [example](/components/modals/UploadModal.tsx), [example](/components/modals/SubscribeModal.tsx))
+
+Front end:
+
+- create `error.tsx` at root page to catch errors at child pages ([example](/app/error.tsx))
+- create `loading.tsx` at specific pages to display loading
+- create variables for themes ([use case](/components/Header/Header.tsx), [use case](/components/LikeButton.tsx)):
+  - create rbg values in `globals.css` ([example](/app/globals.css))
+  - create tailwind variables using css variables ([example](/tailwind.config.ts))
+
+Sound player:
+
+- `npm install howler`
+- `npm install  @types/howler`
+- create global stores for current and all songs ([example](/hooks/usePlayer.ts))
+- create controller to control the sound and audio ([example](/hooks/useSoundController.ts))

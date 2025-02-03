@@ -1,13 +1,13 @@
-import { HiHome } from "react-icons/hi";
-import { BiSearch } from "react-icons/bi";
 import { useRouter } from "next/navigation";
+import { BiSearch } from "react-icons/bi";
+import { HiHome } from "react-icons/hi";
 
 /**
  * This component renders the search and home button.
  * 
  * It renders for mobile views only.
  */
-const MenuButton = () => {
+export default function MenuButton() {
   const size = 20;
   const router = useRouter();
   return (
@@ -29,4 +29,3 @@ const MenuButton = () => {
     </div>
   )
 }
-export default MenuButton;

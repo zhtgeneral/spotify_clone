@@ -1,11 +1,9 @@
-import useSoundController from "@/hooks/useSoundController";
 import { IconType } from "react-icons";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 
-
 interface CenterProps {
   onPlayPrev: () => void;
-  handlePlay: () => void;
+  togglePlay: () => void;
   onPlayNext: () => void;
   icon: IconType
 }
@@ -15,12 +13,12 @@ interface CenterProps {
  * 
  * It renders a prev/next button with a play/pause button.
  */
-const CenterComponent: React.FC<CenterProps> = ({
+export default function CenterComponent({
   onPlayPrev,
-  handlePlay,
+  togglePlay,
   onPlayNext,
   icon: Icon
-}) => {
+}: CenterProps) {
   const size = 30;
   return (
     <div className="hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-6">
@@ -31,7 +29,7 @@ const CenterComponent: React.FC<CenterProps> = ({
       />
       <div
         className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer"
-        onClick={handlePlay}
+        onClick={togglePlay}
       >
         <Icon size={size} className="text-black" />
       </div>
@@ -43,4 +41,3 @@ const CenterComponent: React.FC<CenterProps> = ({
     </div>
   )
 }
-export default CenterComponent

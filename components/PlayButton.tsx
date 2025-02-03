@@ -6,7 +6,7 @@ import { FaPlay } from "react-icons/fa";
  *
  * It appears green with black play icon that is enlarged when hovered over
  */
-const PlayButton = () => {
+export default function PlayButton() {
 	return (
 		<button className={clsx(`
 			transition opacity-0 rounded-full flex items-center 
@@ -18,5 +18,3 @@ const PlayButton = () => {
 		</button>
 	);
 };
-
-export default PlayButton;

@@ -6,7 +6,7 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
  * 
  * It is hidden for mobile view.
  */
-const TraverseButton = () => {
+export default function TraverseButton() {
   const router = useRouter();
   return (
     <div className="hidden md:flex gap-x-2 items-center">
@@ -25,4 +25,3 @@ const TraverseButton = () => {
     </div>
   )
 }
-export default TraverseButton;

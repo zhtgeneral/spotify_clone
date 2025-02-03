@@ -5,12 +5,17 @@ import { useUser } from "@/hooks/useUser";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
+interface Debug {
+	isLiked: boolean
+}
+
 interface LikeButtonProps {
-	songId: string
+	songId: string,
+	debug?: Debug
 }
 
 /**
@@ -23,18 +28,24 @@ interface LikeButtonProps {
  * Otherwise it renders an outline heart icon.
  * 
  * On like status change, it displays a message to the user.
+ * 
+ * @requires user needs to be logged in. 
+ * @requires SupabaseProvider needs to be around this component.
+ * @requires UserProvider needs to be around this component.
+ * @requires RouterContext needs to be around this component.
  */
-const LikeButton: React.FC<LikeButtonProps> = ({ 
-	songId
-}) => {
-	const [isLiked, setIsLiked] = useState(false);
-
+export default function LikeButton({ 
+	songId,
+	debug
+}: LikeButtonProps) {
+	const { user } = useUser();
 	const router = useRouter();
 	const supabaseClient = useSupabaseClient()
 	const authmodal = useAuthModal();
-	const { user } = useUser();
-
-	useEffect(() => {
+	
+	const [isLiked, setIsLiked] = useState(false);
+	
+	React.useEffect(() => {
 		if (!user || !user?.id) {
 			return;
 		}
@@ -45,6 +56,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 				.eq("user_id", user?.id)
 				.eq("song_id", songId)
 				.maybeSingle();
+
 			if (!error && data) {
 				setIsLiked(true);
 			}
@@ -84,7 +96,11 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 		router.refresh();
 	};
 
-	const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
+	let songLiked = isLiked;
+	if (debug) {
+		songLiked = debug.isLiked;
+	}
+	const Icon = songLiked ? AiFillHeart : AiOutlineHeart;
 	return (
 		<button 
 			onClick={handleLike} 
@@ -97,5 +113,3 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 		</button>
 	);
 };
-
-export default LikeButton;

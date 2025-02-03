@@ -1,18 +1,23 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Modal from "@/components/modals/Modal";
+import useAuthModal from "@/hooks/modals/useAuthModal";
 import {
 	useSessionContext,
 	useSupabaseClient,
 } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import useAuthModal from "@/hooks/modals/useAuthModal";
-import { useEffect } from "react";
 import { Figtree } from "next/font/google";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-const font = Figtree({ subsets: ["latin"] });
+interface AuthModalProps {
+	debugging?: boolean
+}
+
+/** Commented out font because it doesn't load in storybook */
+// const font = Figtree({ subsets: ["latin"] });
 
 /**
  * This component handles displaying the login and register form.
@@ -24,8 +29,12 @@ const font = Figtree({ subsets: ["latin"] });
  * 
  * On login mode, it shows a link to login using magic link email.
  * On login mode, it shows a link to reset password.
+ * 
+ * @requires CSS variables needs to be set with a variable for --main-darken, -main, --darken
  */
-const AuthModal = () => {
+export default function AuthModal({
+	debugging = false
+}: AuthModalProps) {
 	const supabaseClient = useSupabaseClient();
 	const { session } = useSessionContext();
 
@@ -49,10 +58,9 @@ const AuthModal = () => {
 		<Modal
 			title="Welcome back"
 			description="Login to your account"
-			isOpen={isOpen}
+			isOpen={isOpen || debugging}
 			onChange={onChange}
 		>
-			{/* <input className="hover:outline-1/> */}
 			<Auth
 				theme="dark"
 				magicLink={true}
@@ -73,10 +81,10 @@ const AuthModal = () => {
 								messageBorderDanger: "var(--warn)"
 							},
 							fonts: {
-								bodyFontFamily: font.style.fontFamily,
-								buttonFontFamily: font.style.fontFamily,
-								inputFontFamily: font.style.fontFamily,
-								labelFontFamily: font.style.fontFamily,
+								// bodyFontFamily: font.style.fontFamily,
+								// buttonFontFamily: font.style.fontFamily,
+								// inputFontFamily: font.style.fontFamily,
+								// labelFontFamily: font.style.fontFamily,
 							},
 							radii: {
 								borderRadiusButton: "24px",
@@ -102,5 +110,3 @@ const AuthModal = () => {
 		</Modal>
 	);
 };
-
-export default AuthModal;

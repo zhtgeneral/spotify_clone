@@ -1,25 +1,20 @@
 import Slider from "@/components/Player/Slider";
-import { Dispatch, SetStateAction } from "react";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 
 interface RightComponentProps {
   volume: number,
-  setVolume: Dispatch<SetStateAction<number>>
+  changeVolume: (value: number) => void;
 }
 
 /**
  * This is the right subcomponent that handles changes and volume mutes.
  */
-const RightComponent: React.FC<RightComponentProps> = ({
+export default function RightComponent({
   volume,
-  setVolume,
-}) => {
+  changeVolume
+}: RightComponentProps) {
   function toggleMute() {
-		if (volume === 0) {
-			setVolume(1);
-		} else {
-			setVolume(0)
-		}
+    volume == 0? changeVolume(1) : changeVolume(0);
 	}
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
   return (
@@ -32,10 +27,9 @@ const RightComponent: React.FC<RightComponentProps> = ({
         />
         <Slider 
           value={volume} 
-          onChange={(value) => setVolume(value)} 
+          onChange={changeVolume} 
         />
       </div>
     </div>
   )
 }
-export default RightComponent

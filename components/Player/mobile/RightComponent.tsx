@@ -1,7 +1,7 @@
 import { IconType } from "react-icons";
 
 interface MobileRightComponent {
-  handlePlay: () => void;
+  togglePlay: () => void;
   icon: IconType
 }
 
@@ -10,13 +10,13 @@ interface MobileRightComponent {
  * 
  * It has a play/pause button that plays/stops the song playing.
  */
-const MobileRightComponent: React.FC<MobileRightComponent> = ({
-  handlePlay,
+export default function MobileRightComponent({
+  togglePlay,
   icon: Icon
-}) => {
+}: MobileRightComponent) {
   return (
     <div
-      onClick={handlePlay}
+      onClick={togglePlay}
       className="flex md:hidden col-auto w-full justify-end items-center"
     >
       <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer">
@@ -28,4 +28,3 @@ const MobileRightComponent: React.FC<MobileRightComponent> = ({
     </div>
   )
 }
-export default MobileRightComponent;
