@@ -12,7 +12,12 @@ import { Figtree } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const font = Figtree({ subsets: ["latin"] });
+interface AuthModalProps {
+	debugging?: boolean
+}
+
+/** Commented out font because it doesn't load in storybook */
+// const font = Figtree({ subsets: ["latin"] });
 
 /**
  * This component handles displaying the login and register form.
@@ -27,7 +32,9 @@ const font = Figtree({ subsets: ["latin"] });
  * 
  * @requires CSS variables needs to be set with a variable for --main-darken, -main, --darken
  */
-export default function AuthModal() {
+export default function AuthModal({
+	debugging = false
+}: AuthModalProps) {
 	const supabaseClient = useSupabaseClient();
 	const { session } = useSessionContext();
 
@@ -51,10 +58,9 @@ export default function AuthModal() {
 		<Modal
 			title="Welcome back"
 			description="Login to your account"
-			isOpen={isOpen}
+			isOpen={isOpen || debugging}
 			onChange={onChange}
 		>
-			{/* <input className="hover:outline-1/> */}
 			<Auth
 				theme="dark"
 				magicLink={true}
@@ -75,10 +81,10 @@ export default function AuthModal() {
 								messageBorderDanger: "var(--warn)"
 							},
 							fonts: {
-								bodyFontFamily: font.style.fontFamily,
-								buttonFontFamily: font.style.fontFamily,
-								inputFontFamily: font.style.fontFamily,
-								labelFontFamily: font.style.fontFamily,
+								// bodyFontFamily: font.style.fontFamily,
+								// buttonFontFamily: font.style.fontFamily,
+								// inputFontFamily: font.style.fontFamily,
+								// labelFontFamily: font.style.fontFamily,
 							},
 							radii: {
 								borderRadiusButton: "24px",
