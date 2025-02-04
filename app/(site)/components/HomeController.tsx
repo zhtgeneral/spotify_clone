@@ -4,16 +4,16 @@ import { useUser } from "@/hooks/useUser";
 import { Song } from "@/types";
 import { HomePresenter } from '@/app/(site)/components/HomePresenter';
 
-interface HomeControllerClientProps {
+interface HomeControllerProps {
   songs: Song[]
 }
 
 /**
  * This function gets the user using the client hook `useUser`
  */
-export function HomeControllerClient({
+export function HomeController({
 	songs
-}: HomeControllerClientProps) {
+}: HomeControllerProps) {
 	const { user } = useUser();
 	return (
 		<HomePresenter 
