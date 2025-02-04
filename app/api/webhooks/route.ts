@@ -3,19 +3,7 @@ import { HttpStatusCode } from "axios";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { syncDataSupabase } from "./syncData";
-
-const relevantEvents = new Set([
-	"product.created",
-	"product.updated",
-	"price.created",
-	"price.updated",
-	"checkout.session.completed",
-	"customer.subscription.created",
-	"customer.subscription.updated",
-	"customer.subscription.deleted",
-]);
-
+import { relevantEvents, syncDataSupabase } from "./helpers";
 
 /**
  * This endpoint creates a webhook that allows Stripe Dashboard to recieve events.

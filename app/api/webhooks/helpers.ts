@@ -1,6 +1,17 @@
 import { onSubscriptionChange, upsertPriceRecord, upsertProductRecord } from "@/libs/supabaseAdmin";
 import Stripe from "stripe";
 
+export const relevantEvents = new Set([
+	"product.created",
+	"product.updated",
+	"price.created",
+	"price.updated",
+	"checkout.session.completed",
+	"customer.subscription.created",
+	"customer.subscription.updated",
+	"customer.subscription.deleted",
+]);
+
 /**
  * This function handles the Stripe webhook events.
  * 
