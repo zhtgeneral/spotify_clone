@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { stripe } from "@/libs/stripe";
 import { ensureCustomer } from "@/libs/supabaseAdmin";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
@@ -21,7 +23,7 @@ import { getURL } from "@/utils/getUrl";
  * 
  * If any other error occurs, it returns a `500` response for `Internal Error`.
  */
-export async function POST(_request: Request) {
+export async function POST(request: Request) {
 	try {
 		const supabase = createRouteHandlerClient({ cookies });
 		const userResponse: UserResponse = await supabase.auth.getUser();
