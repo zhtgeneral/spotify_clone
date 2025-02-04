@@ -12,6 +12,7 @@ import {
   useUser as useSupaUser
 } from "@supabase/auth-helpers-react";
 import { Subscription, UserDetails } from "@/types";
+import React from "react";
 
 type UserContextType = {
   accessToken: string | null;
@@ -35,7 +36,7 @@ interface Props {
  * 
  * It gives global access to `accessToken`, `user`, `userDetails`, `isLoading`, `subscription`.
  */
-export function MyUserContextProvider ({
+export function MyUserContextProvider({
   children
 }: Props) {
   const { session, isLoading: isLoadingUser, supabaseClient } = useSessionContext();
@@ -46,15 +47,20 @@ export function MyUserContextProvider ({
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
 
-  const getUserDetails = () => supabaseClient.from("users").select("*").maybeSingle();
-  const getSubscription = () => supabaseClient
-    .from("subscriptions")
-    .select("*, prices(*, products(*))")
-    .in("status", ["trialing", "active"])
-    .maybeSingle();
+  function getUserDetails() {
+    return supabaseClient.from("users").select("*").maybeSingle();
+  }
+  function getSubscription() {
+    return supabaseClient
+      .from("subscriptions")
+      .select("*, prices(*, products(*))")
+      .in("status", ["trialing", "active"])
+      .maybeSingle();
+  } 
 
-  useEffect(() => {
-    if (user && !isLoadingData && !userDetails && !subscription) {
+  React.useEffect(() => {
+    const isFinishedLoadingUser = user && !isLoadingData;
+    if (isFinishedLoadingUser && !userDetails && !subscription) {
       setIsLoadingData(true);
       
       Promise.allSettled([getUserDetails(), getSubscription()])

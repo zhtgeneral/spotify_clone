@@ -1,8 +1,10 @@
+"use client"
+
 import Header from "@/components/Header/Header";
 import { Song } from "@/types";
+import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import LikedContent from './LikedContent';
-import { User } from "@supabase/supabase-js";
 
 interface LikedPresenterProps {
   songs: Song[],

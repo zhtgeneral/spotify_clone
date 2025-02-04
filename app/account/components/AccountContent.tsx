@@ -2,60 +2,81 @@
 
 import Button from '@/components/Button';
 import useSubscribeModal from '@/hooks/modals/useSubscribeModal';
-import { useUser } from '@/hooks/useUser';
+import { Subscription } from '@/types';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-const AccountContent = () => {
+interface AccountContentProps {
+	subscription: Subscription | null,
+	isLoading: boolean
+}
+
+/**
+ * This component shows the content for the account.
+ * 
+ * If the user has a subscription, it tells the user the active plan.
+ * 
+ * Otherwise it shows a subscribe button which opens the subscribe modal.
+ */
+export default function AccountContent({
+	isLoading,
+	subscription
+}: AccountContentProps) {
 	const router = useRouter();
 	const subscribeModal = useSubscribeModal();
-	const { isLoading, subscription, user } = useUser();
 
-	const [loading, setLoading] = useState(false);
-	useEffect(() => {
-		if (!isLoading && !user) {
-			router.replace("/");
-		}
-	}, [user, isLoading, router]);
+	const [actionLoading, setActionLoading] = useState(false);
+
 	async function redirectToCustomerPortal() {
-		setLoading(true);
+		setActionLoading(true);
 		try {
       const { data } = await axios.post("/api/portal");
       router.replace(data.url);
 		} catch (error: any) {
 			toast.error(error.message);
 		}
-		setLoading(false);
+		setActionLoading(false);
 	}
+
+	let content = (
+		<div className='flex flex-col gap-y-4'>
+			<p>No active subscription.</p>
+			<Button   
+				onClick={() => subscribeModal.onOpen()}
+				className='w-[300px]'
+				disabled={isLoading}
+			> 
+				Subscribe
+			</Button>
+		</div>
+	)
+
+	if (subscription) {
+		let message = <p>You are currently subscribed.</p>
+		if (subscription?.prices?.products?.name) {
+			message = <p>You are currently subscribed on the <b>{subscription?.prices?.products?.name}</b> plan.</p>
+		}
+		content = (
+			<div className='flex flex-col gap-y-4'>
+				{message}
+				<Button
+					disabled={actionLoading || isLoading}
+					onClick={redirectToCustomerPortal}
+					className="w-[300px]"  
+				>
+					Open customer portal
+				</Button>
+			</div>
+		)
+	}
+
+	console.log(`AccountContent isLoading ${isLoading}`)
+
 	return (
 		<div className='mb-7 px-6'>
-			{!subscription && (
-				<div className='flex flex-col gap-y-4'>
-          <p>No active subscription.</p>
-          <Button   
-            onClick={() => subscribeModal.onOpen()}
-            className='w-[300px]'
-          > 
-            Subscribe
-          </Button>
-				</div>
-			)}
-      {subscription && (
-        <div className='flex flex-col gap-y-4'>
-          <p>You are currently subscribed on the <b>{subscription?.prices?.products?.name}</b> plan.</p>
-          <Button
-            disabled={loading || isLoading}
-            onClick={redirectToCustomerPortal}
-            className="w-[300px]"  
-          >
-            Open customer portal
-          </Button>
-        </div>
-      )}
+			{content}
 		</div>
 	)
 };
-
-export default AccountContent;

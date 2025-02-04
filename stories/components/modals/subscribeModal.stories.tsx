@@ -60,6 +60,47 @@ const mockProductsHasPrices: ProductWithPrice[] = [
   }
 ]
 
+const mockProductsNoInterval: ProductWithPrice[] = [
+  {
+    id: "mock product id 1",
+    active: true,
+    name: "mock product name",    
+    metadata: {},
+    prices: [
+      {
+        id: "mock price id 1",
+        product_id: "mock product id 1",
+        active: true,
+        unit_amount: 1099,
+        currency: "USD",
+      },
+      {
+        id: "mock price id 2",
+        product_id: "mock product id 1",
+        active: true,
+        unit_amount: 399,
+        currency: "USD",
+      }
+    ]
+  },
+  {
+    id: "mock stripe id 2",
+    active: true,
+    name: "mock product name 2",    
+    metadata: {},
+    prices: [
+      {
+        id: "mock price id 3",
+        product_id: "mock product id 2",
+        active: true,
+        unit_amount: 99,
+        currency: "USD",
+      },
+    ]
+  }
+]
+
+
 const mockSubscription = {
   id: "mock subscription id",
   user_id: "mock user id",
@@ -106,6 +147,11 @@ export const HasProductsNoPrices: Story = {
 export const HasProductsHasPrices: Story = {
   args: {
     products: mockProductsHasPrices
+  }
+}
+export const HasProductsNoInterval: Story = {
+  args: {
+    products: mockProductsNoInterval
   }
 }
 export const SingleProductDisabled: Story = {

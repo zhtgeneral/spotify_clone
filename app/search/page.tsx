@@ -1,8 +1,7 @@
 import getSongsByTitle from "@/actions/getSongByTitle";
-import { SearchPresenter } from "./components/SearchPresenter";
-import { useUser } from "@/hooks/useUser";
+import SearchController from './components/SearchController';
 
-interface SearchControllerProps {
+interface SearchServerProps {
 	searchParams: {
 		title: string;
 	}
@@ -13,15 +12,13 @@ interface SearchControllerProps {
  * 
  * @requires title is on searchParams
  */
-export default async function SearchController({ 
+export default async function SearchServer({ 
 	searchParams
-}: SearchControllerProps) {
-	const { user } = useUser();
+}: SearchServerProps) {
 	const songs = await getSongsByTitle(searchParams.title);
 	return (
-		<SearchPresenter 
+		<SearchController 
 			songs={songs} 
-			user={user}
 		/>
 	)
 };

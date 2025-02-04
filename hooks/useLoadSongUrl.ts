@@ -6,7 +6,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
  * 
  * If there is no song, it return an empty string.
  */
-const useLoadSongUrl = (song: Song | undefined) => {
+export default function useLoadSongUrl(song: Song | undefined) {
 	if (!song) {
 		return "";
 	}
@@ -14,5 +14,3 @@ const useLoadSongUrl = (song: Song | undefined) => {
 	const { data } = supabaseClient.storage.from("songs").getPublicUrl(song.song_path);
 	return data.publicUrl;
 };
-
-export default useLoadSongUrl;

@@ -17,13 +17,13 @@ interface ModalProps {
  * 
  * It renders a dark and blured background when the modal is open.
  */
-const Modal: React.FC<ModalProps> = ({
+export default function Modal({
 	isOpen,
 	onChange,
 	title,
 	description,
 	children,
-}) => {
+}: ModalProps) {
 	return (
 		<Dialog.Root 
 			open={isOpen} 
@@ -62,5 +62,3 @@ const Modal: React.FC<ModalProps> = ({
 		</Dialog.Root>
 	);
 };
-
-export default Modal;

@@ -14,24 +14,20 @@ const mockUser = {
   aud: "mock aud"
 }
 
-const mockSongs: Song[] = [
-  {
-    id: "mock id",
-    title: "mock title",
-    user_id: "mock user id",
-    author: "mock author",
-    song_path: "song-test-m3ksjin5",
-    image_path: "image-test-m3ksjin5"
-  },
-  {
-    id: "mock id",
-    title: "mock title",
-    user_id: "mock user id",
-    author: "mock author",
-    song_path: "song-test-m3ksi7v4",
-    image_path: "image-test-m3ksi7v4"
-  }
-]
+const mockSong = {
+  id: "mock id",
+  title: "mock title",
+  user_id: "mock user id",
+  author: "mock author",
+  song_path: "song-test-m3ksjin5",
+  image_path: "image-test-m3ksjin5"
+}
+
+/** This gets an array of songs which unique ids for each song */
+const mockSongs = Array(50).fill(null).map((_, index) => ({
+  ...mockSong,
+  id: `mock id ${index + 1}`,
+}));
 
 const meta = {
   title: 'app/search',
@@ -52,7 +48,6 @@ export const LoggedOut: Story = {
 }
 export const NoSongs: Story = {};
 
-//  TODO causes supabaseClient.storage is undefined need to mock
 export const ManySong: Story = {
   args: {
     songs: mockSongs

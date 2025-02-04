@@ -3,6 +3,8 @@ import { Howl } from 'howler';
 import React from "react";
 import { useEffect } from "react";
 
+const debugging = true;
+
 export default function useSoundController(
   songUrl: string,
   volume: number,
@@ -22,28 +24,40 @@ export default function useSoundController(
       volume: volume,
       format: ['mp3'],
       onplay: () => {
-        console.log('useSoundController::onplay', { songUrl });
+        if (debugging) {
+          console.log('useSoundController::onplay', { songUrl });
+        }
         setIsPlaying(true);
       },
       onend: () => {
-        console.log('useSoundController::onend');
+        if (debugging) {
+          console.log('useSoundController::onend');
+        }
         setIsPlaying(false);
         onPlayNext();
       },
       onpause: () => {
-        console.log('useSoundController::onpause');
+        if (debugging) {
+          console.log('useSoundController::onpause');
+        }
         setIsPlaying(false);
       },
       onstop: () => {
-        console.log('useSoundController::onstop');
+        if (debugging) {
+          console.log('useSoundController::onstop');
+        }
         setIsPlaying(false);
       },
       onloaderror: (_, error) => {
-        console.error('useSoundController::onloaderror:', error);
+        if (debugging) {
+          console.error('useSoundController::onloaderror:', error);
+        }
         setIsPlaying(false);
       },
       onplayerror: (_, error) => {
-        console.error('useSoundController::onplayerror:', error);
+        if (debugging) {
+          console.error('useSoundController::onplayerror:', error);
+        }
         setIsPlaying(false);
       }
     });
@@ -55,12 +69,15 @@ export default function useSoundController(
     };
   }, [songUrl]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (soundRef.current) {
       soundRef.current.volume(volume);
     }
   }, [volume]);
 
+  /**
+   * This function sets the next song in the list as current, or jumps to the beginning.
+   */
   function onPlayNext() {
     if (playerState.ids.length === 0) return;
     
@@ -74,6 +91,9 @@ export default function useSoundController(
     }
   }
 
+  /**
+   * This function sets the previous song as current, or jumps to the end.
+   */
   function onPlayPrev() {
     if (playerState.ids.length === 0) return;
     
