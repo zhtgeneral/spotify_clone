@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { stripe } from "@/libs/stripe";
 import { ensureCustomer } from "@/libs/supabaseAdmin";
 import { getURL } from "@/utils/getUrl";
