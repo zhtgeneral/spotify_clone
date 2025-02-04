@@ -10,7 +10,7 @@ import { useUser } from "@/hooks/useUser";
  * 
  * Otherwise it stores the `ids` of each of the songs in global state.
  * 
- * It returns a function that allos the client to set the current active song.
+ * It returns a function that allows the client to set the current active song.
  */
 export default function useOnPlay(songs: Song[]) {
 	const player = usePlayer();
