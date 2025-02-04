@@ -45,28 +45,29 @@ export default function LikeButton({
 	
 	const [isLiked, setIsLiked] = useState(false);
 	
-	React.useEffect(() => {
-		if (!user || !user?.id) {
-			return;
-		}
-		async function fetchData() {
+	React.useEffect(() => {		
+		fetchData();
+	}, [songId, supabaseClient, user, user?.id]);
+
+	async function fetchData() {
+		if (user && user.id) {
 			const { data, error } = await supabaseClient
-				.from("liked_songs")
-				.select("*")
-				.eq("user_id", user?.id)
-				.eq("song_id", songId)
-				.maybeSingle();
+			.from("liked_songs")
+			.select("*")
+			.eq("user_id", user.id)
+			.eq("song_id", songId)
+			.maybeSingle();
 
 			if (!error && data) {
 				setIsLiked(true);
 			}
-		};
-		fetchData();
-	}, [songId, supabaseClient, user, user?.id]);
+		}
+	}
 
 	async function handleLike() {
 		if (!user) {
 			authmodal.onOpen();
+			return;
 		}
 		if (isLiked) {
 			const { error } = await supabaseClient
