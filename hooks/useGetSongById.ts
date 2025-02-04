@@ -1,25 +1,26 @@
 import { Song } from "@/types";
 
-import { useEffect, useMemo, useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import React from "react";
 import toast from "react-hot-toast";
 
 /**
  * This hook returns memo of song containing isLoading and the song
  * @param id optional string
  */
-const useGetSongById = (id?: string) => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [song, setSong] = useState<Song | undefined>(undefined);
+export default function useGetSongById(songId?: string) {
 	const supabaseClient = useSupabaseClient();
 
-	useEffect(() => {
-		if (!id) {
+	const [isLoading, setIsLoading] = React.useState(false);
+	const [song, setSong] = React.useState<Song | undefined>(undefined);
+
+	React.useEffect(() => {
+		if (!songId) {
 			return;
 		}
 		setIsLoading(true);
 		async function fetchSong() {
-			const { data, error } = await supabaseClient.from("songs").select("*").eq("id", id).single();
+			const { data, error } = await supabaseClient.from("songs").select("*").eq("id", songId).single();
 			if (error) {
 				setIsLoading(false);
 				return toast.error(error.message);
@@ -28,9 +29,9 @@ const useGetSongById = (id?: string) => {
 			setIsLoading(false);
 		};
 		fetchSong();
-	}, [id, supabaseClient]);
+	}, [songId, supabaseClient]);
 
-	return useMemo(
+	return React.useMemo(
 		() => ({
 			isLoading,
 			song,
@@ -38,5 +39,3 @@ const useGetSongById = (id?: string) => {
 		[isLoading, song]
 	);
 };
-
-export default useGetSongById;

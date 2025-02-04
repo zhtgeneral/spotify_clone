@@ -13,24 +13,20 @@ const mockChildren = (
   </Box>
 )
 
-const mockSongs: Song[] = [
-  {
-    id: "mock id",
-    title: "mock title",
-    user_id: "mock user id",
-    author: "mock author",
-    song_path: "song-test-m3ksjin5",
-    image_path: "image-test-m3ksjin5"
-  },
-  {
-    id: "mock id",
-    title: "mock title",
-    user_id: "mock user id",
-    author: "mock author",
-    song_path: "song-test-m3ksi7v4",
-    image_path: "image-test-m3ksi7v4"
-  }
-]
+const mockSong = {
+  id: "mock id",
+  title: "mock title",
+  user_id: "mock user id",
+  author: "mock author",
+  song_path: "song-test-m3ksjin5",
+  image_path: "image-test-m3ksjin5"
+}
+
+/** This gets an array of songs which unique ids for each song */
+const mockSongs = Array(50).fill(null).map((_, index) => ({
+  ...mockSong,
+  id: `mock id ${index + 1}`,
+}));
 
 const meta = {
   title: 'components/Sidebar',

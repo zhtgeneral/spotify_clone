@@ -5,10 +5,8 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
  * 
  * @requires SupabaseContext is around this component.
  */
-const useLoadImage = (song: Song) => {
+export default function useLoadImage(song: Song) {
 	const supabaseClient = useSupabaseClient();
 	const { data } = supabaseClient.storage.from("images").getPublicUrl(song.image_path);
 	return data.publicUrl;
 };
-
-export default useLoadImage;

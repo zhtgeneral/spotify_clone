@@ -12,11 +12,12 @@ interface SliderProps {
  * 
  * The default value of the slide is 1.
  */
-const Slider: React.FC<SliderProps> = ({
+export default function Slider({
 	value = 1,
 	onChange,
-}) => {
-	const handleChange = (newValue: number[]) => {
+}: SliderProps) {
+	
+	function handleChange(newValue: number[]) {
 		onChange(newValue[0]);
 	};
 
@@ -36,5 +37,3 @@ const Slider: React.FC<SliderProps> = ({
 		</RadixSlider.Root>
 	);
 };
-
-export default Slider;

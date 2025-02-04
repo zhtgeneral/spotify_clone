@@ -12,12 +12,12 @@ import { useUser } from "@/hooks/useUser";
  * 
  * It returns a function that allos the client to set the current active song.
  */
-const useOnPlay = (songs: Song[]) => {
+export default function useOnPlay(songs: Song[]) {
 	const player = usePlayer();
 	const authModal = useAuthModal();
 	const { user } = useUser();
 
-	const onPlay = (id: string): void => {
+	function onPlay(id: string) {
 		if (!user) {
 			return authModal.onOpen();
 		}
@@ -26,5 +26,3 @@ const useOnPlay = (songs: Song[]) => {
 	};
 	return onPlay;
 };
-
-export default useOnPlay;

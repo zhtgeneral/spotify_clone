@@ -1,13 +1,18 @@
 import Header from "@/components/Header/Header";
+import { Subscription } from "@/types";
 import { User } from "@supabase/supabase-js";
 import AccountContent from "./AccountContent";
 
 interface AccountPresenterProps {
-  user: User | null
+  user: User | null,
+	subscription: Subscription | null,
+	isLoading: boolean
 }
 
 export default function AccountPresenter({
-  user
+  user,
+	isLoading,
+	subscription
 }: AccountPresenterProps) {
 	return (
 		<div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
@@ -18,7 +23,10 @@ export default function AccountPresenter({
 					</h1>
 				</div>
 			</Header>
-			<AccountContent />
+			<AccountContent 
+				subscription={subscription}
+				isLoading={isLoading}
+			/>
 		</div>
 	);
 };
