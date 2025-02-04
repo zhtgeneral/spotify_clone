@@ -3,7 +3,7 @@ import { HttpStatusCode } from "axios";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { relevantEvents, syncDataSupabase } from "./helpers";
+import { handleStripeEvent } from "./helpers";
 
 /**
  * This endpoint creates a webhook that allows Stripe Dashboard to recieve events.
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 	try {
 		const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 		if (!signature || !webhookSecret) {
-			return;
+			return new NextResponse("Missing signature or webhook secret", { status: HttpStatusCode.BadRequest });
 		}
 		event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
 	} catch (error: any) {
@@ -35,13 +35,11 @@ export async function POST(request: Request) {
 		return new NextResponse(`Webhook Error: ${error.message}`, { status: HttpStatusCode.BadRequest });
 	}
 
-	if (relevantEvents.has(event.type)) {
-		try {
-			await syncDataSupabase(event);
-		} catch (error: any) {
-			console.log(error);
-			return new NextResponse("Webhook Error", { status: HttpStatusCode.BadRequest });
-		}
+	try {
+		await handleStripeEvent(event);
+		return NextResponse.json({ received: true }, { status:  HttpStatusCode.Ok });
+	} catch (error: any) {
+		console.log(error);
+		return new NextResponse("Webhook Error", { status: HttpStatusCode.BadRequest });
 	}
-	return NextResponse.json({ received: true }, { status:  HttpStatusCode.Ok });
 }
