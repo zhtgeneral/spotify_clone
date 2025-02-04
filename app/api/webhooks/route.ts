@@ -1,13 +1,9 @@
 import { stripe } from "@/libs/stripe";
-import {
-	onSubscriptionChange,
-	upsertPriceRecord,
-	upsertProductRecord,
-} from "@/libs/supabaseAdmin";
+import { HttpStatusCode } from "axios";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { HttpStatusCode } from "axios";
+import { syncDataSupabase } from "./syncData";
 
 const relevantEvents = new Set([
 	"product.created",
@@ -19,58 +15,6 @@ const relevantEvents = new Set([
 	"customer.subscription.updated",
 	"customer.subscription.deleted",
 ]);
-
-/**
- * This function handles the Stripe webhook events.
- * 
- * If the type is product related, it upserts the product into Supabase.
- * 
- * If the type is price related, it upserts the price into Supabase.
- * 
- * If the type is customer related, it ensure the customers is on Supabase.
- * 
- * If the type is checkout and subscription related, it uploads the change into Supabase.
- * 
- * If the type is not supported, it throws an error.
- * 
- * @requires function name starts with an underscore so Next.js build doesn't interpret it as a handler.
- */
-async function _syncDataSupabase(event: Stripe.Event) {
-	switch (event.type) {
-		case "product.created":
-		case "product.updated":
-			await upsertProductRecord(event.data.object);
-			break;
-		case "price.created":
-		case "price.updated":
-			await upsertPriceRecord(event.data.object);
-			break;
-		case "customer.subscription.created":
-		case "customer.subscription.updated":
-		case "customer.subscription.deleted":
-			const subscription = event.data.object;
-			await onSubscriptionChange(
-				subscription.id,
-				subscription.customer as string,
-				event.type === "customer.subscription.created"
-			);
-			break;
-		case "checkout.session.completed":
-			const checkoutSession = event.data.object;
-			if (checkoutSession.mode === "subscription") {
-				const subscriptionId = checkoutSession.subscription;
-				const createAction = true;
-				await onSubscriptionChange(
-					subscriptionId as string,
-					checkoutSession.customer as string,
-					createAction
-				);
-			}
-			break;
-		default:
-			throw new Error("Unhandled relevant event");
-	}
-}
 
 
 /**
@@ -105,7 +49,7 @@ export async function POST(request: Request) {
 
 	if (relevantEvents.has(event.type)) {
 		try {
-			_syncDataSupabase(event);
+			await syncDataSupabase(event);
 		} catch (error: any) {
 			console.log(error);
 			return new NextResponse("Webhook Error", { status: HttpStatusCode.BadRequest });
