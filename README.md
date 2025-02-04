@@ -6,6 +6,8 @@ The web app allows users to listen, favorite, and add songs.
 
 TODO The project is end-to-end tested and tests mobile and desktop scenarios.
 
+This project is unit tested for visuals and can be manually tested.
+
 The UI is reponsive for mobile and desktop browsers.
 
 ### How to recreate
