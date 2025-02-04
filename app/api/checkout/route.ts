@@ -5,7 +5,7 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { UserResponse } from "@supabase/supabase-js";
 import { HttpStatusCode } from "axios";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 /**
  * This endpoint handles creating a Stripe checkout session.
@@ -22,7 +22,7 @@ import { NextRequest, NextResponse } from "next/server";
  * 
  * If any other error occurs, it returns a `500` error for `Internal Error`.
  */
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
 	const { price, quantity = 1, metadata = {} } = await request.json();
 
 	try {
