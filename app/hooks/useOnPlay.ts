@@ -1,5 +1,5 @@
 import { useUser } from '@/app/hooks/useUser';
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 import usePlayer from '@/app/hooks/usePlayer';
 import useAuthModal from '@/app/hooks/modals/useAuthModal';
 

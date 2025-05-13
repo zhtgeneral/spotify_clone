@@ -1,7 +1,7 @@
 "use client"
 
 import Header from "@/app/components/Header/Header";
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import LikedContent from './LikedContent';

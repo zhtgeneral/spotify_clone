@@ -4,7 +4,7 @@ import ListItem from '@/app/(site)/components/ListItem';
 import PageContent from '@/app/(site)/components/PageContent';
 import Header from '@/app/components/Header/Header';
 import useOnPlay from '@/app/hooks/useOnPlay';
-import { Song } from '@/types';
+import { Song } from '@/app/types/types';
 import { User } from '@supabase/supabase-js';
 
 

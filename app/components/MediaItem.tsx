@@ -3,7 +3,7 @@
 import usePlayer from '@/app/hooks/usePlayer';
 import useLoadImage from '@/app/hooks/useLoadImage';
 
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 import Image from "next/image";
 
 interface MediaItemProps {

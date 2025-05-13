@@ -1,6 +1,6 @@
 "use client";
 
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 
 import CenterComponent from "@/app/components/Player/desktop/CenterComponent";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";

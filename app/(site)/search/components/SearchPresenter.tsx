@@ -1,7 +1,7 @@
 import SearchContent from '@/app/(site)/search/components/SearchContent';
 import SearchInput from '@/app/(site)/search/components/SearchInput';
 import Header from "@/app/components/Header/Header";
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 import { User } from '@supabase/supabase-js';
 
 interface SearchPresenterProps {

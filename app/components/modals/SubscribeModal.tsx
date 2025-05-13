@@ -6,7 +6,7 @@ import useSubscribeModal from "@/app/hooks/modals/useSubscribeModal";
 import formatPrice from "@/app/utils/formatPrice";
 import Button from "@/app/components/Button";
 import Modal from "@/app/components/modals/Modal";
-import { Price, ProductWithPrice, Subscription } from "@/types";
+import { Price, ProductWithPrice, Subscription } from "@/app/types/types";
 
 import { useState } from "react";
 import toast from "react-hot-toast";

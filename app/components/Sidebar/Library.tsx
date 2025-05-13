@@ -7,7 +7,7 @@ import useUploadModal from "@/app/hooks/modals/useUploadModal";
 import useOnPlay from "@/app/hooks/useOnPlay";
 import { useUser } from "@/app/hooks/useUser";
 
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
 

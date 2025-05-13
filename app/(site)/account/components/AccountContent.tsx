@@ -2,7 +2,7 @@
 
 import Button from '@/app/components/Button';
 import useSubscribeModal from '@/app/hooks/modals/useSubscribeModal';
-import { Subscription } from '@/types';
+import { Subscription } from '@/app/types/types';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

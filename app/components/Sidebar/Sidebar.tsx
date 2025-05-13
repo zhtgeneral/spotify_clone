@@ -5,7 +5,7 @@ import usePlayer from "@/app/hooks/usePlayer";
 import Box from "@/app/components/Box";
 import Library from '@/app/components/Sidebar/Library';
 import SidebarItem from "@/app/components/Sidebar/SidebarItem";
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 import { twMerge } from "tailwind-merge";
 
 import { usePathname } from "next/navigation";

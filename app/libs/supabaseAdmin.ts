@@ -1,8 +1,8 @@
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { stripe } from "@/app/libs/stripe";
-import { Database } from "@/types_db";
-import { Price, Product } from "@/types";
+import { Database } from "@/app/types/types_db";
+import { Price, Product } from "@/app/types/types";
 import formatDate from "@/app/utils/formatDate";
 
 export const supabaseAdmin = createClient<Database>(

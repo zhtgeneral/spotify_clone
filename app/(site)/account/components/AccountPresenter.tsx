@@ -1,5 +1,5 @@
 import Header from "@/app/components/Header/Header";
-import { Subscription } from "@/types";
+import { Subscription } from "@/app/types/types";
 import { User } from "@supabase/supabase-js";
 import AccountContent from "./AccountContent";
 

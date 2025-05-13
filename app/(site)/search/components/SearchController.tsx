@@ -2,7 +2,7 @@
 
 import { SearchPresenter } from '@/app/(site)/search/components/SearchPresenter';
 import { useUser } from "@/app/hooks/useUser";
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 
 interface SearchControllerProps {
   songs: Song[]

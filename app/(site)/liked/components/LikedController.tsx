@@ -1,7 +1,7 @@
 "use client"
 
 import { useUser } from "@/app/hooks/useUser";
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 import { useRouter } from "next/navigation";
 import React from "react";
 import LikedPresenter from '@/app/(site)/liked/components/LikedPresenter';

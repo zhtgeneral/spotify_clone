@@ -1,4 +1,4 @@
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import React from "react";

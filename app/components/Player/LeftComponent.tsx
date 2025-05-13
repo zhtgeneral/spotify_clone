@@ -1,4 +1,4 @@
-import { Song } from "@/types"
+import { Song } from "@/app/types/types"
 import LikeButton from "../LikeButton"
 import MediaItem from "../MediaItem"
 

@@ -3,7 +3,7 @@
 import LikeButton from "@/app/components/LikeButton";
 import MediaItem from "@/app/components/MediaItem";
 import useOnPlay from "@/app/hooks/useOnPlay";
-import { Song } from "@/types";
+import { Song } from "@/app/types/types";
 
 interface SearchContentProps {
 	songs: Song[]

@@ -1,4 +1,4 @@
-import { Price } from "@/types";
+import { Price } from "@/app/types/types";
 
 export default function formatPrice(price: Price) {
 	const priceString = new Intl.NumberFormat("en-US", {
