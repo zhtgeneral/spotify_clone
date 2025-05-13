@@ -1,5 +1,4 @@
-import { SearchPresenter } from '@/app/search/components/SearchPresenter';
-import { Song } from '@/types';
+import { SearchPresenter } from '@/app/(site)/search/components/SearchPresenter';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const mockUser = {

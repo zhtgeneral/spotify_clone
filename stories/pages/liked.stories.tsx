@@ -1,6 +1,6 @@
 
 
-import LikedPresenter from '@/app/liked/components/LikedPresenter';
+import LikedPresenter from '@/app/(site)/liked/components/LikedPresenter';
 import { Song } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
 

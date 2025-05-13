@@ -1,13 +1,14 @@
 import type { Preview } from "@storybook/react";
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import React from "react";
 
-import SupabaseProvider from '../providers/SupabaseProvider';
-import UserProvider from '../providers/UserProvider';
+/** This line imports mock context for tests */
+import UserProvider from '../app/providers/UserProvider';
+import SupabaseProvider from '../app/providers/SupabaseProvider';
 import mockRouterContext from "./mocks/MockRouterContext";
 
 /** This line imports styles from tailwind css */
-import "../app/globals.css";
+import "../app/(site)/globals.css";
+
 
 
 const preview: Preview = {
