@@ -1,13 +1,13 @@
 export const dynamic = 'force-dynamic';
 
-import { stripe } from "@/libs/stripe";
-import { ensureCustomer } from "@/libs/supabaseAdmin";
+import { stripe } from "@/app/libs/stripe";
+import { ensureCustomer } from "@/app/libs/supabaseAdmin";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { UserResponse } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { HttpStatusCode } from "axios";
-import { getURL } from "@/utils/getUrl";
+import { getURL } from "@/app/utils/getUrl";
 /**
  * This endpoint handles creating a Stripe billing portal session.
  * 

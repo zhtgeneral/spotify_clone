@@ -1,7 +1,7 @@
 "use client";
 
-import useAuthModal from "@/hooks/modals/useAuthModal";
-import { useUser } from "@/hooks/useUser";
+import useAuthModal from "@/app/hooks/modals/useAuthModal";
+import { useUser } from "@/app/hooks/useUser";
 import clsx from "clsx";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

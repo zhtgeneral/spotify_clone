@@ -10,6 +10,41 @@ This project is unit tested for visuals and can be manually tested.
 
 The UI is reponsive for mobile and desktop browsers.
 
+### How to run
+Create .env file at root and fill out these variabls
+```
+# Used after checkout redirect 
+# Include http:// or https://
+# Do not include / at the end
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# for accessing db on supabase
+NEXT_PUBLIC_SUPABASE_URL=https://<>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<>
+SUPABASE_SERVICE_ROLE_KEY=<>
+
+# for accessing db on stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<>
+NEXT_PUBLIC_SECRET_KEY=<>
+
+# for monitoring webhooks with stripe
+STRIPE_WEBHOOK_SECRET=<>
+
+# for use with supabase
+GITHUB_CLIENT_SECRET=<>
+GOOGLE_CLIENT_SECRET=<>
+GOOGLE_REDIRECT_URL=<>
+```
+
+- To run the app: `npm run dev`
+- To open component tests `npm run storybook`
+- To run stripe webhooks:
+  - `stripe login`
+  - `stripe listen --forward-to localhost:3000/api/webhooks`
+  - copy and paste WEBHOOK_SIGNING_SECRET into environment variables
+  - ensure project is running on `localhost:3000`
+  - Create product on Stripe Dashboard
+
 ### How to recreate
 
 ##### Third party steps
@@ -100,7 +135,7 @@ Supabase:
 - create an endpoint for `/auth/confirm`
   - exchange their secure code for an auth token when user confirms email with link
 
-Stripe:
+Stripe (TODO update for Stripe Sandboxes instead of Test mode):
 
 - `npm install stripe`
 - setup Account on Stripe dashboard:

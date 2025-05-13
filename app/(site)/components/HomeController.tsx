@@ -1,7 +1,7 @@
 "use client"
 
-import { useUser } from "@/hooks/useUser";
-import { Song } from "@/types";
+import { useUser } from "@/app/hooks/useUser";
+import { Song } from "@/app/types/types";
 import { HomePresenter } from '@/app/(site)/components/HomePresenter';
 
 interface HomeControllerProps {
