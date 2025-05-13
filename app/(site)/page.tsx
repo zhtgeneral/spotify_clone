@@ -1,4 +1,4 @@
-import getSongs from "@/actions/getSongs";
+import getSongs from "@/app/actions/getSongs";
 import { HomeController } from "./components/HomeController";
 
 /** This is used to disable caching */

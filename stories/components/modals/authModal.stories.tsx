@@ -1,4 +1,4 @@
-import AuthModal from '@/components/modals/AuthModal';
+import AuthModal from '@/app/components/modals/AuthModal';
 import type { Meta, StoryObj } from '@storybook/react';
 
 

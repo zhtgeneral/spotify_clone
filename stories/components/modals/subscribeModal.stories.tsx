@@ -1,4 +1,4 @@
-import SubscribeModal from '@/components/modals/SubscribeModal';
+import SubscribeModal from '@/app/components/modals/SubscribeModal';
 import { ProductWithPrice } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
 

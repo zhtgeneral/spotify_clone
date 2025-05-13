@@ -1,5 +1,5 @@
 
-import LikeButton from '@/components/LikeButton';
+import LikeButton from '@/app/components/LikeButton';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

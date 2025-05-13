@@ -1,5 +1,5 @@
 
-import PlayerPresenter from '@/components/Player/PlayerPresenter';
+import PlayerPresenter from '@/app/components/Player/PlayerPresenter';
 import { Song } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
 

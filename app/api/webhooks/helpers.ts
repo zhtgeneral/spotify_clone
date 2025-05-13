@@ -1,4 +1,4 @@
-import { onSubscriptionChange, upsertPriceRecord, upsertProductRecord } from "@/libs/supabaseAdmin";
+import { onSubscriptionChange, upsertPriceRecord, upsertProductRecord } from "@/app/libs/supabaseAdmin";
 import Stripe from "stripe";
 
 export const relevantEvents = new Set([

@@ -1,5 +1,5 @@
 
-import Button from '@/components/Button';
+import Button from '@/app/components/Button';
 import type { Meta, StoryObj } from '@storybook/react';
 
 

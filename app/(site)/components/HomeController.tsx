@@ -1,6 +1,6 @@
 "use client"
 
-import { useUser } from "@/hooks/useUser";
+import { useUser } from "@/app/hooks/useUser";
 import { Song } from "@/types";
 import { HomePresenter } from '@/app/(site)/components/HomePresenter';
 

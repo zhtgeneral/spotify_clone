@@ -1,7 +1,7 @@
 
-import Box from '@/components/Box';
-import Header from '@/components/Header/Header';
-import UserProvider from '@/providers/UserProvider';
+import Box from '@/app/components/Box';
+import Header from '@/app/components/Header/Header';
+import UserProvider from '@/app/providers/UserProvider';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import mockRouterContext from '../../.storybook/mocks/MockRouterContext';

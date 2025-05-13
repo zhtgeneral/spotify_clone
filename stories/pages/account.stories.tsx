@@ -1,6 +1,6 @@
 
 
-import AccountPresenter from '@/app/account/components/AccountPresenter';
+import AccountPresenter from '@/app/(site)/account/components/AccountPresenter';
 import { Subscription } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
 

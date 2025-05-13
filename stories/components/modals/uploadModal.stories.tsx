@@ -1,4 +1,4 @@
-import UploadModal from '@/components/modals/UploadModal';
+import UploadModal from '@/app/components/modals/UploadModal';
 import type { Meta, StoryObj } from '@storybook/react';
 
 

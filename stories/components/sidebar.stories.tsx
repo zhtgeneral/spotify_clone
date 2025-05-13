@@ -1,8 +1,8 @@
 
-import Box from '@/components/Box';
-import SideBar from '@/components/Sidebar/Sidebar';
-import SupabaseProvider from '@/providers/SupabaseProvider';
-import UserProvider from '@/providers/UserProvider';
+import Box from '@/app/components/Box';
+import SideBar from '@/app/components/Sidebar/Sidebar';
+import SupabaseProvider from '@/app/providers/SupabaseProvider';
+import UserProvider from '@/app/providers/UserProvider';
 import { Song } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
 

@@ -1,4 +1,4 @@
-import { stripe } from "@/libs/stripe";
+import { stripe } from "@/app/libs/stripe";
 import { HttpStatusCode } from "axios";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
