@@ -1,7 +1,6 @@
 import AuthModal from '@/app/components/modals/AuthModal';
 import type { Meta, StoryObj } from '@storybook/react';
 
-
 const meta = {
   title: 'components/modals/AuthModal',
   component: AuthModal,

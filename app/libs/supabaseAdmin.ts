@@ -1,14 +1,11 @@
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
 import { stripe } from "@/app/libs/stripe";
 import { Database } from "@/app/types/types_db";
 import { Price, Product } from "@/app/types/types";
 import formatDate from "@/app/utils/formatDate";
+import { createClient } from '../utils/supabase/server';
 
-export const supabaseAdmin = createClient<Database>(
-	process.env.NEXT_PUBLIC_SUPABASE_URL!,
-	process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// TODO USE REST API INSTEAD OF SERVER ACTIONS
 
 /**
  * This function upserts Stripe product data onto Supabase.
@@ -17,6 +14,7 @@ export const supabaseAdmin = createClient<Database>(
  * @param product - Stripe.Product
  */
 export async function upsertProductRecord(product: Stripe.Product) {
+	const supabase = await createClient();
 	const productData: Product = {
 		id: product.id,
 		active: product.active,
@@ -25,7 +23,7 @@ export async function upsertProductRecord(product: Stripe.Product) {
 		image: product.images?.[0],
 		metadata: product.metadata,
 	};
-	const upsert = await supabaseAdmin.from("products").upsert([productData]);
+	const upsert = await supabase.from("products").upsert([productData]);
 	if (upsert.error) {
 		throw upsert.error;
 	}
@@ -39,6 +37,7 @@ export async function upsertProductRecord(product: Stripe.Product) {
  * @param price - Stripe.Price
  */
 export async function upsertPriceRecord(price: Stripe.Price) {
+	const supabase = await createClient();
 	const priceData: Price = {
 		id: price.id,
 		product_id: price.product as string,
@@ -53,7 +52,7 @@ export async function upsertPriceRecord(price: Stripe.Price) {
 		metadata: price.metadata,
 	};
 
-	const upsert = await supabaseAdmin.from("prices").upsert([priceData]);
+	const upsert = await supabase.from("prices").upsert([priceData]);
 	if (upsert.error) {
 		throw upsert.error;
 	}
@@ -74,7 +73,8 @@ export async function upsertPriceRecord(price: Stripe.Price) {
  * @return stripe customer id
  */
 export async function ensureCustomer(email: string, uuid: string): Promise<string> {
-	const { data, error } = await supabaseAdmin
+	const supabase = await createClient();
+	const { data, error } = await supabase
 		.from("customers")
 		.select("stripe_customer_id")
 		.eq("id", uuid)
@@ -85,7 +85,7 @@ export async function ensureCustomer(email: string, uuid: string): Promise<strin
 			metadata: { id: uuid },
 			email: email,
 		});
-		const { error } = await supabaseAdmin
+		const { error } = await supabase
 			.from("customers")
 			.insert([{ 
 				id: uuid, 
@@ -113,6 +113,7 @@ export async function ensureCustomer(email: string, uuid: string): Promise<strin
  * @param payment_method Stripe payment method
  */
 async function syncCustomerDetails(id: string, payment_method: Stripe.PaymentMethod) {
+	const supabase = await createClient();
 	const billingDetails = payment_method.billing_details;
 	if (!billingDetails.name || !billingDetails.phone || !billingDetails.address) {
 		return;
@@ -124,7 +125,7 @@ async function syncCustomerDetails(id: string, payment_method: Stripe.PaymentMet
 		address: billingDetails.address as Stripe.AddressParam,
 	});
 
-	const update = await supabaseAdmin
+	const update = await supabase
 		.from("users")
 		.update({
 			billing_address: { ...billingDetails.address },
@@ -158,7 +159,8 @@ export async function onSubscriptionChange(
 	customerId: string, 
 	createAction: boolean = false
 ) {
-	const result = await supabaseAdmin.from("customers").select("id").eq("stripe_customer_id", customerId).single();
+	const supabase = await createClient();
+	const result = await supabase.from("customers").select("id").eq("stripe_customer_id", customerId).single();
 	if (result.error) {
 		throw result.error;
 	}
@@ -183,7 +185,7 @@ export async function onSubscriptionChange(
 		trial_end: formatDate(subscription.trial_end)
 	};
 	console.log("subscription: " + JSON.stringify(subscriptionData,null,2));
-	const upsert = await supabaseAdmin.from("subscriptions").upsert([subscriptionData]);
+	const upsert = await supabase.from("subscriptions").upsert([subscriptionData]);
 	if (upsert.error) {
 		throw upsert.error;
 	}
