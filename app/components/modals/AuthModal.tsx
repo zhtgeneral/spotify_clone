@@ -10,14 +10,16 @@ import Modal from "@/app/components/modals/Modal";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import React from "react";
+import { Figtree } from "next/font/google";
 
 interface AuthModalProps {
+	/** set this to true in component tests for mocking, otherwise leave out */
 	debugging?: boolean
 }
 
 /** Commented out font because it doesn't load in storybook */
-// const font = Figtree({ subsets: ["latin"] });
+const font = Figtree({ subsets: ["latin"] });
 
 /**
  * This component handles displaying the login and register form.
@@ -30,18 +32,21 @@ interface AuthModalProps {
  * On login mode, it shows a link to login using magic link email.
  * On login mode, it shows a link to reset password.
  * 
+ * Note: The rest of the project uses modern server/browser supabase client,
+ * but this component will have to use the outdated version.
+ * 
  * @requires CSS variables needs to be set with a variable for --main-darken, -main, --darken
  */
 export default function AuthModal({
 	debugging = false
-}: AuthModalProps) {
+}: AuthModalProps) {	
 	const supabaseClient = useSupabaseClient();
 	const { session } = useSessionContext();
 
 	const router = useRouter();
 	const { onClose, isOpen } = useAuthModal();
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (session) {
 			router.refresh();
 			onClose();
@@ -81,14 +86,15 @@ export default function AuthModal({
 								messageBorderDanger: "var(--warn)"
 							},
 							fonts: {
-								// bodyFontFamily: font.style.fontFamily,
-								// buttonFontFamily: font.style.fontFamily,
-								// inputFontFamily: font.style.fontFamily,
-								// labelFontFamily: font.style.fontFamily,
+								/** keep commented out until fonts can be mocked in storybook */
+								bodyFontFamily: font.style.fontFamily,
+								buttonFontFamily: font.style.fontFamily,
+								inputFontFamily: font.style.fontFamily,
+								labelFontFamily: font.style.fontFamily,
 							},
 							radii: {
 								borderRadiusButton: "24px",
-								// inputBorderRadius: "24px"
+								inputBorderRadius: "24px"
 							},
 							fontSizes: {
 								baseBodySize: "12px",

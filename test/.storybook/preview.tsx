@@ -9,6 +9,12 @@ import mockRouterContext from "./mocks/MockRouterContext";
 /** This line imports styles from tailwind css */
 import "../../app/(site)/globals.css";
 
+import { Figtree } from "next/font/google";
+
+const font = Figtree({ 
+	subsets: ["latin"], 
+	variable: '--font-Figtree'
+});
 
 
 const preview: Preview = {
