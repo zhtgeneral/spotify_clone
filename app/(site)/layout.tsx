@@ -10,8 +10,11 @@ import { Figtree } from "next/font/google";
 import "./globals.css";
 import ToasterProvider from "@/app/providers/ToasterProvider";
 import SideBar from '@/app/components/Sidebar/Sidebar';
+import { font } from './font';
 
-const font = Figtree({ subsets: ["latin"] });
+console.log("font layout: " + JSON.stringify(font, null, 2));
+
+// const font = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: "Spotify Clone",

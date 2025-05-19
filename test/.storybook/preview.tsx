@@ -10,6 +10,8 @@ import mockRouterContext from "./mocks/MockRouterContext";
 import "../../app/(site)/globals.css";
 
 import { Figtree } from "next/font/google";
+import React from "react";
+// import { font } from '../../app/(site)/font';
 
 const font = Figtree({ 
 	subsets: ["latin"], 
@@ -45,6 +47,25 @@ const preview: Preview = {
 		}
 	},
 	decorators: [
+		// (Story) => (
+    //   <main className={font.className}>
+		// 	{/* <main className={font.className} style={{ fontFamily: 'Figtree, sans-serif' }}> */}
+		// 		<Story />
+		// 	</main>
+		// ),
+		(Story) => {
+      React.useEffect(() => {
+        document.body.classList.add(
+          font.variable,
+          'font-sans',
+          'antialiased'
+        );
+      }, []);
+
+      return (
+				<Story />
+      );
+    },
 		(Story) => (
 			/** This context gives access to a mock router */
 			<AppRouterContext.Provider value={mockRouterContext}>
