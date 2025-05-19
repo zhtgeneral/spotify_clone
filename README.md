@@ -1,5 +1,15 @@
 # Music player app
 
+### Sample
+
+![Home Page Desktop](/demo/Home%20Page.png).
+![Home Page Desktop](/demo/Login%20Menu.png).
+![Home Page Desktop](/demo/Logged%20In%20Page.png).
+![Home Page Desktop](/demo/Account%20Page.png).
+![Home Page Desktop](/demo/Liked%20Songs.png).
+![Home Page Desktop](/demo/Search%20Page.png).
+![Home Page Desktop](/demo/Mobile%20View.png).
+
 ### What it does
 
 The web app allows users to listen, favorite, and add songs.

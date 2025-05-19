@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/nextjs";
+import path from "path";
 
 const config: StorybookConfig = {
 	stories: [
@@ -39,6 +40,12 @@ const config: StorybookConfig = {
         ],
       });
     }
+		// if (config?.resolve) {
+		// 	config.resolve.alias = {
+    //   ...config.resolve.alias,
+    //   'next/font/google': path.resolve(__dirname, './mocks/nextFont.js')
+    // 	};
+		// }
     return config;
   },
 };

@@ -11,7 +11,8 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Figtree } from "next/font/google";
+// import { Figtree } from "next/font/google";
+import { font } from "@/app/(site)/font";
 
 interface AuthModalProps {
 	/** set this to true in component tests for mocking, otherwise leave out */
@@ -19,7 +20,7 @@ interface AuthModalProps {
 }
 
 /** Commented out font because it doesn't load in storybook */
-const font = Figtree({ subsets: ["latin"] });
+// const font = Figtree({ subsets: ["latin"] });
 
 /**
  * This component handles displaying the login and register form.
